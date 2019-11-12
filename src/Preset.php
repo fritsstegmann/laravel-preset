@@ -57,6 +57,8 @@ class Preset extends LaravelPreset
             'vue-property-decorator' => '^8.3.0',
             'vue-class-component' => '^7.1.0',
             'vue-template-compiler' => '^2.6.10',
+            'vue-rx' => '^6.2.0',
+            'rxjs' => '^6.5.3',
         ];
     }
 
