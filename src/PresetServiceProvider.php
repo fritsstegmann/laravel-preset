@@ -24,7 +24,7 @@ class PresetServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        PresetCommand::macro('vuets-tw', function ($command) {
+        PresetCommand::macro('fstegmann', function ($command) {
             Preset::install();
         });
     }
