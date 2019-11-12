@@ -1,0 +1,31 @@
+{
+    "name": "fritsstegmann/laravel-preset",
+    "description": "TailwindCSS Scss Typescript Vue",
+    "keywords": [
+        "laravel",
+        "laravel preset",
+        "typescript",
+        "tailwind",
+        "vue",
+        "scss"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Frits Stegmann",
+            "email": "fstegmann@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "FritsStegmann\\Preset\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers":["FritsStegmann\\Preset\\PresetServiceProvider"]
+        }
+    }
+}
