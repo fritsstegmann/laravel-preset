@@ -4,7 +4,9 @@
 namespace FritsStegmann\Preset;
 
 use Illuminate\Foundation\Console\Presets\Preset as LaravelPreset;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Laravel\Ui\AuthCommand;
 
 class AuthCommandPreset extends LaravelPreset
 {
@@ -22,9 +24,26 @@ class AuthCommandPreset extends LaravelPreset
             'layouts/auth.stub' => 'layouts/auth.blade.php',
         ];
 
+        AuthCommandPreset::ensureDirectoriesExist();
         AuthCommandPreset::exportViews($views);
 
         File::copy(__DIR__ . '/../stubs/auth-stubs/welcome.stub', resource_path('views/welcome.blade.php'));
+    }
+
+    /**
+     * Create the directories for the files.
+     *
+     * @return void
+     */
+    protected static function ensureDirectoriesExist()
+    {
+        if (! is_dir($directory = resource_path('views/layouts'))) {
+            mkdir($directory, 0755, true);
+        }
+
+        if (! is_dir($directory = resource_path('views/auth/passwords'))) {
+            mkdir($directory, 0755, true);
+        }
     }
 
     /**
@@ -35,26 +54,10 @@ class AuthCommandPreset extends LaravelPreset
      */
     private static function exportViews($views)
     {
-        if (!File::exists(base_path('vendor/laravel/ui/src/Auth/tailwind-stubs'))) {
-            File::makeDirectory(base_path('vendor/laravel/ui/src/Auth/tailwind-stubs'));
-        }
-
-        if (!File::exists(base_path('vendor/laravel/ui/src/Auth/tailwind-stubs/auth'))) {
-            File::makeDirectory(base_path('vendor/laravel/ui/src/Auth/tailwind-stubs/auth'));
-        }
-
-        if (!File::exists(base_path('vendor/laravel/ui/src/Auth/tailwind-stubs/auth/passwords'))) {
-            File::makeDirectory(base_path('vendor/laravel/ui/src/Auth/tailwind-stubs/auth/passwords'));
-        }
-
-        if (!File::exists(base_path('vendor/laravel/ui/src/Auth/tailwind-stubs/layouts'))) {
-            File::makeDirectory(base_path('vendor/laravel/ui/src/Auth/tailwind-stubs/layouts'));
-        }
-
         foreach ($views as $key => $value) {
             File::copy(
                 __DIR__ . '/../stubs/auth-stubs/' . $key,
-                base_path('vendor/laravel/ui/src/Auth/tailwind-stubs/' . $key)
+                resource_path('views/' . $value)
             );
         }
     }
