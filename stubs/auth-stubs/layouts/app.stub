@@ -19,35 +19,34 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
+<body class="bg-gray-200">
 <div>
     <nav class="bg-white h-16">
-        <div class="mb-4 pb-4 flex container m-auto border-solid border-b-2 border-gray-400">
-            <a class="mt-4 flex-grow" href="{{ url('/') }}">
+        <div class="flex container m-auto">
+            <a class="mt-5 text-gray-700 flex-grow" href="{{ url('/') }}">
                 {{ config('app.name', 'Laravel') }}
             </a>
 
             <!-- Right Side Of Navbar -->
-            <ul class="mt-4 navbar-nav ml-auto">
+            <ul class="mt-5 ml-auto">
                 <!-- Authentication Links -->
                 @guest
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                    <li class="">
+                        <a class="" href="{{ route('login') }}">{{ __('Login') }}</a>
                     </li>
                     @if (Route::has('register'))
-                        <li class="ml-4 nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                        <li class="ml-4">
+                            <a class="" href="{{ route('register') }}">{{ __('Register') }}</a>
                         </li>
                     @endif
                 @else
-                    <li class="flex nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->name }} <span class="caret"></span>
-                        </a>
+                    <li class="flex">
+                        <div>
+                            {{ Auth::user()->name }}
+                        </div>
 
-                        <div class="ml-4 dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('logout') }}"
+                        <div class="ml-4">
+                            <a class="py-2 px-4 rounded-lg bg-gray-300" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                 {{ __('Logout') }}
@@ -64,7 +63,7 @@
         </div>
     </nav>
 
-    <main class="container m-auto">
+    <main class="mt-4 container m-auto">
         <div id="app"></div>
     </main>
 </div>
