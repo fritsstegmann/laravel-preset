@@ -3,82 +3,85 @@
 @section('content')
     <div class="container m-auto">
         <div class="w-96 m-auto">
-            <div class="mt-24 py-8 px-8 bg-gray-200 rounded border border-solid border-gray-400">
-                <div class="uppercase text-sm leading-loose">{{ __('Register') }}</div>
+            <div class="mt-20">
+                <a href="/" class="text-gray-600 text-2xl font-medium">{{ config('app.name', 'Laravel') }}</a>
+                <div class="mt-2 py-8 px-8 bg-gray-100 rounded border border-solid border-gray-400">
+                    <div class="uppercase text-sm leading-loose">{{ __('Register') }}</div>
 
-                <form method="POST" action="{{ route('register') }}">
-                    @csrf
+                    <form method="POST" action="{{ route('register') }}">
+                        @csrf
 
-                    <div class="mt-8">
-                        <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                        <div class="mt-8">
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
-                        <div class="col-md-6">
-                            <input id="name" type="text"
-                                   class="py-2 px-4 w-full outline-none rounded border-gray-500 border-solid border @error('name') border-red-500 @enderror"
-                                   name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                            <div class="mt-2">
+                                <input id="name" type="text"
+                                       class="py-2 px-4 w-full outline-none rounded border-gray-500 border-solid border @error('name') border-red-500 @enderror"
+                                       name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
-                            @error('name')
-                            <span class="invalid-feedback" role="alert">
+                                @error('name')
+                                <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                            @enderror
+                                @enderror
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="mt-8">
-                        <label for="email"
-                               class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                        <div class="mt-8">
+                            <label for="email"
+                                   class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
-                        <div class="col-md-6">
-                            <input id="email" type="email"
-                                   class="py-2 px-4 w-full outline-none rounded border-gray-500 border-solid border @error('email') border-red-500 @enderror"
-                                   name="email" value="{{ old('email') }}" required autocomplete="email">
+                            <div class="mt-2">
+                                <input id="email" type="email"
+                                       class="py-2 px-4 w-full outline-none rounded border-gray-500 border-solid border @error('email') border-red-500 @enderror"
+                                       name="email" value="{{ old('email') }}" required autocomplete="email">
 
-                            @error('email')
-                            <span class="invalid-feedback" role="alert">
+                                @error('email')
+                                <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                            @enderror
+                                @enderror
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="mt-8">
-                        <label for="password"
-                               class="text-gray-800">{{ __('Password') }}</label>
+                        <div class="mt-8">
+                            <label for="password"
+                                   class="text-gray-800">{{ __('Password') }}</label>
 
-                        <input id="password" type="password"
-                               class="py-2 px-4 w-full outline-none rounded border-gray-500 border-solid border text-gray-800 @error('password') border-red-500 @enderror"
-                               name="password"
-                               required autocomplete="new-password">
+                            <input id="password" type="password"
+                                   class="mt-2 py-2 px-4 w-full outline-none rounded border-gray-500 border-solid border text-gray-800 @error('password') border-red-500 @enderror"
+                                   name="password"
+                                   required autocomplete="new-password">
 
-                        @error('password')
-                        <span class="invalid-feedback" role="alert">
+                            @error('password')
+                            <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
-                        @enderror
-                    </div>
-
-                    <div class="mt-8">
-                        <label for="password-confirm"
-                               class="text-gray-800">{{ __('Confirm Password') }}</label>
-
-                        <input id="password-confirm" type="password"
-                               class="py-2 px-4 w-full outline-none rounded border-gray-500 border-solid border text-gray-800"
-                               name="password_confirmation" required autocomplete="new-password">
-                    </div>
-
-                    <div class="mt-8">
-                        <div class="py-2 px-4 w-full text-center rounded bg-gray-800 text-gray-200">
-                            <button type="submit" class="btn btn-primary">
-                                {{ __('Register') }}
-                            </button>
+                            @enderror
                         </div>
-                    </div>
 
-                    <div class="mt-8">
-                        <a class="font-medium text-gray-800" href="/login">Login</a>
-                    </div>
-                </form>
+                        <div class="mt-8">
+                            <label for="password-confirm"
+                                   class="text-gray-800">{{ __('Confirm Password') }}</label>
+
+                            <input id="password-confirm" type="password"
+                                   class="mt-2 py-2 px-4 w-full outline-none rounded border-gray-500 border-solid border text-gray-800"
+                                   name="password_confirmation" required autocomplete="new-password">
+                        </div>
+
+                        <div class="mt-8">
+                            <div class="py-2 px-4 w-full text-center rounded bg-gray-800 text-gray-200">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Register') }}
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="mt-8">
+                            <a class="font-medium text-gray-800" href="/login">Login</a>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

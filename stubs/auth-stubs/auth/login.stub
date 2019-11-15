@@ -3,10 +3,11 @@
 @section('content')
     <div class="container m-auto">
         <div class="w-96 m-auto">
-            <div class="mt-32 py-8 px-8 bg-gray-200 rounded border border-solid border-gray-400">
-                <div class="uppercase text-sm leading-loose">{{ __('Login') }}</div>
+            <div class="mt-20">
+                <a href="/" class="text-gray-600 text-2xl font-medium">{{ config('app.name', 'Laravel') }}</a>
+                <div class="mt-2 py-8 px-8 bg-gray-100 rounded border border-solid border-gray-400">
+                    <div class="uppercase text-sm leading-loose">{{ __('Login') }}</div>
 
-                <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
@@ -14,7 +15,7 @@
                             <label for="email"
                                    class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
-                            <div class="col-md-6">
+                            <div class="mt-2">
                                 <input id="email" type="email"
                                        class="py-2 px-4 w-full outline-none rounded border-gray-500 border-solid border @error('email') is-invalid @enderror"
                                        name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
@@ -31,7 +32,7 @@
                             <label for="password"
                                    class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
-                            <div class="col-md-6">
+                            <div class="mt-2">
                                 <input id="password" type="password"
                                        class="py-2 px-4 w-full outline-none rounded border-gray-500 border-solid border @error('password') is-invalid @enderror"
                                        name="password" required autocomplete="current-password">
@@ -59,7 +60,7 @@
 
 
                                 @if (Route::has('password.request'))
-                                    <a class="ml-4" href="{{ route('password.request') }}">
+                                    <a class="ml-4 text-gray-600" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 @endif

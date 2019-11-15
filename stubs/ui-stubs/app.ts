@@ -1,4 +1,4 @@
-import "../../../../../fritsstegmann/laravel-preset/stubs/bootstrap";
+import "./bootstrap";
 
 import Vue from 'vue';
 

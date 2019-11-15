@@ -28,6 +28,7 @@ class AuthCommandPreset extends LaravelPreset
         AuthCommandPreset::exportViews($views);
 
         File::copy(__DIR__ . '/../stubs/auth-stubs/welcome.stub', resource_path('views/welcome.blade.php'));
+        File::copy(__DIR__ . '/../stubs/auth-stubs/router.ts', resource_path('ts/router.ts'));
     }
 
     /**
