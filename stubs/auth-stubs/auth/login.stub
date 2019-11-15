@@ -6,7 +6,7 @@
             <div class="mt-20">
                 <a href="/" class="text-gray-600 text-2xl font-medium">{{ config('app.name', 'Laravel') }}</a>
                 <div class="mt-2 py-8 px-8 bg-gray-100 rounded border border-solid border-gray-400">
-                    <div class="uppercase text-sm leading-loose">{{ __('Login') }}</div>
+                    <div class="uppercase text-sm">{{ __('Login') }}</div>
 
                     <form method="POST" action="{{ route('login') }}">
                         @csrf

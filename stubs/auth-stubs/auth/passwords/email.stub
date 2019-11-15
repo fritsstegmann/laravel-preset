@@ -6,7 +6,7 @@
             <div class="mt-20">
                 <a href="/" class="text-gray-600 text-2xl font-medium">{{ config('app.name', 'Laravel') }}</a>
                 <div class="mt-2 py-8 px-8 bg-gray-100 rounded border border-solid border-gray-400">
-                    <div class="uppercase text-sm leading-loose">{{ __('Reset Password') }}</div>
+                    <div class="uppercase text-sm">{{ __('Reset Password') }}</div>
 
                     <div class="card-body">
                         @if (session('status'))
@@ -37,11 +37,9 @@
                             </div>
 
                             <div class="mt-8">
-                                <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="py-2 px-4 w-full rounded bg-gray-800 text-gray-200">
-                                        {{ __('Send Password Reset Link') }}
-                                    </button>
-                                </div>
+                                <button type="submit" class="py-2 px-4 w-full rounded bg-gray-800 text-gray-200">
+                                    {{ __('Send Password Reset Link') }}
+                                </button>
                             </div>
                         </form>
                     </div>

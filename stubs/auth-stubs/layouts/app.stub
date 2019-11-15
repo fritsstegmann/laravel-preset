@@ -23,7 +23,7 @@
 <div>
     <nav class="bg-white h-16">
         <div class="flex container m-auto">
-            <a class="mt-5 text-gray-700 flex-grow" href="{{ url('/') }}">
+            <a class="mt-5 text-gray-700 flex-grow" href="{{ url('/home') }}">
                 {{ config('app.name', 'Laravel') }}
             </a>
 
