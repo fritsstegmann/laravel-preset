@@ -14,13 +14,13 @@
                             </div>
                         </div>
                     @endif
-                    <div class="mt-8">
+                    <div class="mt-8 text-gray-900">
                         {{ __('Before proceeding, please check your email for a verification link.') }}
                         {{ __('If you did not receive the email') }},
-                        <form class="mt-8" method="POST" action="{{ route('verification.resend') }}">
+                        <form class="inline-block" method="POST" action="{{ route('verification.resend') }}">
                             @csrf
                             <button type="submit"
-                                    class="py-2 px-4 w-full rounded bg-gray-800 text-gray-200">{{ __('click here to request another') }}</button>
+                                    class="m-0 p-0 text-gray-900 font-semibold">{{ __('click here to request another') }}</button>
                         </form>
                     </div>
                 </div>
