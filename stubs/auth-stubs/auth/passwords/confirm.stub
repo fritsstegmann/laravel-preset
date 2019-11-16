@@ -6,14 +6,15 @@
             <div class="mt-20">
                 <div class="mt-2 pt-4 pb-8 px-8 bg-white shadow rounded">
                     <div class="uppercase text-sm text-gray-600 tracking-wider">{{ __('Confirm Password') }}</div>
-                    <div class="mt-4">
+
+                    <div class="mt-4 text-gray-700 text-sm p-2 rounded-sm bg-gray-300 text-gray-700">
                         {{ __('Please confirm your password before continuing.') }}
                     </div>
 
                     <form method="POST" action="{{ route('password.confirm') }}">
                         @csrf
 
-                        <div class="mt-8">
+                        <div class="mt-4">
                             <label for="password"
                                    class="text-gray-800">{{ __('Password') }}</label>
 

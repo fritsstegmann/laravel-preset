@@ -16,7 +16,7 @@
 
                         <div class="mt-4">
                             <label for="email"
-                                   class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                                   class="text-gray-800">{{ __('E-Mail Address') }}</label>
 
                             <div class="mt-2">
                                 <input id="email" type="email"
