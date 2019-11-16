@@ -4,21 +4,23 @@
     <div class="container m-auto">
         <div class="w-96 m-auto">
             <div class="mt-20">
-                <div class="mt-2 py-8 px-8 bg-gray-100 rounded border border-solid border-gray-400">
-                    <div class="uppercase text-sm">{{ __('Reset Password') }}</div>
+                <a href="/"
+                   class="block w-full  text-gray-600 text-center text-2xl font-medium">{{ config('app.name', 'Laravel') }}</a>
+                <div class="mt-2 pt-4 pb-8 px-8 bg-white rounded shadow">
+                    <div class="uppercase text-sm text-gray-600 tracking-wider">{{ __('Reset Password') }}</div>
 
                     <form method="POST" action="{{ route('password.update') }}">
                         @csrf
 
                         <input type="hidden" name="token" value="{{ $token }}">
 
-                        <div class="mt-8">
+                        <div class="mt-4">
                             <label for="email"
                                    class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="mt-2">
                                 <input id="email" type="email"
-                                       class="py-2 px-4 w-full outline-none rounded border-gray-500 border-solid border @error('email') is-invalid @enderror"
+                                       class="py-2 px-4 w-full outline-none rounded border-gray-500 bg-gray-100 border-solid border @error('email') bg-red-100 border-red-500 @enderror"
                                        name="email" value="{{ $email ?? old('email') }}" required autocomplete="email"
                                        autofocus>
 
@@ -36,7 +38,7 @@
 
                             <div class="mt-2">
                                 <input id="password" type="password"
-                                       class="py-2 px-4 w-full outline-none rounded border-gray-500 border-solid border @error('password') is-invalid @enderror"
+                                       class="py-2 px-4 w-full outline-none rounded border-gray-500 bg-gray-100 border-solid border @error('password') bg-red-100 border-red-500 @enderror"
                                        name="password"
                                        required autocomplete="new-password">
 
@@ -54,7 +56,7 @@
 
                             <div class="mt-2">
                                 <input id="password-confirm" type="password"
-                                       class="py-2 px-4 w-full outline-none rounded border-gray-500 border-solid border"
+                                       class="py-2 px-4 w-full outline-none rounded border-gray-500 bg-gray-100 border-solid border"
                                        name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>

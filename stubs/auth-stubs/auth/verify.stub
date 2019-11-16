@@ -4,12 +4,12 @@
     <div class="container m-auto">
         <div class="w-96 m-auto">
             <div class="mt-20">
-                <div class="mt-2 py-8 px-8 bg-gray-100 rounded border border-solid border-gray-400">
+                <div class="mt-2 py-8 px-8 bg-white rounded border border-solid border-gray-400">
                     <div class="uppercase text-sm">{{ __('Verify Your Email Address') }}</div>
 
                     @if (session('resent'))
                         <div class="mt-8">
-                            <div class="p-2 rounded bg-gray-400 shadow-inner" role="alert">
+                            <div class="mt-8 p-4 rounded bg-gray-700 text-gray-100 shadow-inner" role="alert">
                                 {{ __('A fresh verification link has been sent to your email address.') }}
                             </div>
                         </div>

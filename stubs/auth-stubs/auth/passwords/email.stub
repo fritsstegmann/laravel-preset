@@ -4,45 +4,44 @@
     <div class="container m-auto">
         <div class="w-96 m-auto">
             <div class="mt-20">
-                <a href="/" class="text-gray-600 text-2xl font-medium">{{ config('app.name', 'Laravel') }}</a>
-                <div class="mt-2 py-8 px-8 bg-gray-100 rounded border border-solid border-gray-400">
-                    <div class="uppercase text-sm">{{ __('Reset Password') }}</div>
+                <a href="/"
+                   class="block w-full text-gray-600 text-center text-2xl font-medium">{{ config('app.name', 'Laravel') }}</a>
+                <div class="mt-2 pt-4 pb-8 px-8 bg-white rounded shadow">
+                    <div class="uppercase text-sm text-gray-600 tracking-wider">{{ __('Reset Password') }}</div>
 
-                    <div class="card-body">
-                        @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
-                            </div>
-                        @endif
+                    @if (session('status'))
+                        <div class="mt-8 p-4 rounded bg-gray-700 text-gray-100 shadow-inner" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
 
-                        <form method="POST" action="{{ route('password.email') }}">
-                            @csrf
+                    <form method="POST" action="{{ route('password.email') }}">
+                        @csrf
 
-                            <div class="mt-8">
-                                <label for="email"
-                                       class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                        <div class="mt-4">
+                            <label for="email"
+                                   class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
-                                <div class="mt-2">
-                                    <input id="email" type="email"
-                                           class="py-2 px-4 w-full outline-none rounded border-gray-500 border-solid border @error('email') is-invalid @enderror"
-                                           name="email" value="{{ old('email') }}" required autocomplete="email"
-                                           autofocus>
+                            <div class="mt-2">
+                                <input id="email" type="email"
+                                       class="py-2 px-4 w-full outline-none rounded border-gray-500 bg-gray-100 border-solid border @error('email') bg-red-100 border-red-500 @enderror"
+                                       name="email" value="{{ old('email') }}" required autocomplete="email"
+                                       autofocus>
 
-                                    @error('email')
-                                    <span class="invalid-feedback" role="alert">
+                                @error('email')
+                                <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                    @enderror
-                                </div>
+                                @enderror
                             </div>
+                        </div>
 
-                            <div class="mt-8">
-                                <button type="submit" class="py-2 px-4 w-full rounded bg-gray-800 text-gray-200">
-                                    {{ __('Send Password Reset Link') }}
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+                        <div class="mt-8">
+                            <button type="submit" class="py-2 px-4 w-full rounded bg-gray-800 text-gray-200">
+                                {{ __('Send Password Reset Link') }}
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

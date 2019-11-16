@@ -4,20 +4,20 @@
     <div class="container m-auto">
         <div class="w-96 m-auto">
             <div class="mt-20">
-                <a href="/" class="text-gray-600 text-2xl font-medium">{{ config('app.name', 'Laravel') }}</a>
-                <div class="mt-2 py-8 px-8 bg-gray-100 rounded border border-solid border-gray-400">
-                    <div class="uppercase text-sm">{{ __('Login') }}</div>
+                <a href="/"
+                   class="block w-full  text-gray-600 text-center text-2xl font-medium">{{ config('app.name', 'Laravel') }}</a>
+                <div class="mt-2 pt-4 pb-8 px-8 bg-white rounded shadow">
+                    <div class="uppercase text-sm text-gray-600 tracking-wider">{{ __('Login') }}</div>
 
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
-                        <div class="mt-8">
-                            <label for="email"
-                                   class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                        <div class="mt-4">
+                            <label for="email">{{ __('E-Mail Address') }}</label>
 
                             <div class="mt-2">
                                 <input id="email" type="email"
-                                       class="py-2 px-4 w-full outline-none rounded border-gray-500 border-solid border @error('email') is-invalid @enderror"
+                                       class="py-2 px-4 w-full outline-none rounded border-gray-500 bg-gray-100 border-solid border @error('email') bg-red-100 border-red-500 @enderror"
                                        name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                                 @error('email')
@@ -29,13 +29,12 @@
                         </div>
 
                         <div class="mt-8">
-                            <label for="password"
-                                   class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                            <label for="password">{{ __('Password') }}</label>
 
                             <div class="mt-2">
                                 <input id="password" type="password"
-                                       class="py-2 px-4 w-full outline-none rounded border-gray-500 border-solid border @error('password') is-invalid @enderror"
-                                       name="password" required autocomplete="current-password">
+                                       class="py-2 px-4 w-full outline-none rounded border-gray-500 bg-gray-100 border-solid border @error('password') bg-red-100 border-red-500 @enderror"
+                                       name="password" autocomplete="current-password">
 
                                 @error('password')
                                 <span class="invalid-feedback" role="alert">
@@ -47,20 +46,18 @@
 
                         <div class="mt-8 flex">
                             <div class="flex-grow">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember"
+                                <div>
+                                    <input type="checkbox" name="remember"
                                            id="remember" {{ old('remember') ? 'checked' : '' }}>
 
-                                    <label class="form-check-label" for="remember">
+                                    <label for="remember">
                                         {{ __('Remember Me') }}
                                     </label>
                                 </div>
                             </div>
-                            <div class="col-md-8 offset-md-4">
-
-
+                            <div>
                                 @if (Route::has('password.request'))
-                                    <a class="ml-4 text-gray-600" href="{{ route('password.request') }}">
+                                    <a class="ml-4 text-gray-600 underline" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 @endif
@@ -72,12 +69,11 @@
                                 {{ __('Login') }}
                             </button>
                         </div>
-
-                        <div class="mt-8">
-                            <a class="font-medium" href="/register">Register</a>
-                        </div>
                     </form>
                 </div>
+            </div>
+            <div class="mt-2 text-gray-700">
+                Don't have account, <a class="font-medium text-gray-900" href="/register">Register</a> here
             </div>
         </div>
     </div>

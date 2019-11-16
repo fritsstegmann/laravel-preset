@@ -1,22 +1,23 @@
 @extends('layouts.auth')
 
 @section('content')
-    <div class="container m-auto">
-        <div class="w-96 m-auto">
+    <div class="container mx-auto">
+        <div class="w-96 mx-auto">
             <div class="mt-20">
-                <a href="/" class="text-gray-600 text-2xl font-medium">{{ config('app.name', 'Laravel') }}</a>
-                <div class="mt-2 py-8 px-8 bg-gray-100 rounded border border-solid border-gray-400">
-                    <div class="uppercase text-sm leading-loose">{{ __('Register') }}</div>
+                <a href="/"
+                   class="block w-full  text-gray-600 text-center text-2xl font-medium">{{ config('app.name', 'Laravel') }}</a>
+                <div class="mt-2 pt-4 pb-8 px-8 bg-white shadow rounded">
+                    <div class="uppercase text-sm text-gray-600 tracking-wider">{{ __('Register') }}</div>
 
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
-                        <div class="mt-8">
+                        <div class="mt-4">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
                             <div class="mt-2">
                                 <input id="name" type="text"
-                                       class="py-2 px-4 w-full outline-none rounded border-gray-500 border-solid border @error('name') border-red-500 @enderror"
+                                       class="py-2 px-4 w-full outline-none rounded border-gray-500 bg-gray-100 border-solid border @error('name') bg-red-100 border-red-500 @enderror"
                                        name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
                                 @error('name')
@@ -33,7 +34,7 @@
 
                             <div class="mt-2">
                                 <input id="email" type="email"
-                                       class="py-2 px-4 w-full outline-none rounded border-gray-500 border-solid border @error('email') border-red-500 @enderror"
+                                       class="py-2 px-4 w-full outline-none rounded border-gray-500 bg-gray-100 border-solid border @error('email') bg-red-100 border-red-500 @enderror"
                                        name="email" value="{{ old('email') }}" required autocomplete="email">
 
                                 @error('email')
@@ -49,7 +50,7 @@
                                    class="text-gray-800">{{ __('Password') }}</label>
 
                             <input id="password" type="password"
-                                   class="mt-2 py-2 px-4 w-full outline-none rounded border-gray-500 border-solid border text-gray-800 @error('password') border-red-500 @enderror"
+                                   class="mt-2 py-2 px-4 w-full outline-none rounded border-gray-500 bg-gray-100 border-solid border text-gray-800 @error('password') bg-red-100 border-red-500 @enderror"
                                    name="password"
                                    required autocomplete="new-password">
 
@@ -65,24 +66,23 @@
                                    class="text-gray-800">{{ __('Confirm Password') }}</label>
 
                             <input id="password-confirm" type="password"
-                                   class="mt-2 py-2 px-4 w-full outline-none rounded border-gray-500 border-solid border text-gray-800"
+                                   class="mt-2 py-2 px-4 w-full outline-none rounded border-gray-500 bg-gray-100 border-solid border text-gray-800"
                                    name="password_confirmation" required autocomplete="new-password">
                         </div>
 
                         <div class="mt-8">
-                            <div class="py-2 px-4 w-full text-center rounded bg-gray-800 text-gray-200">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="mt-8">
-                            <a class="font-medium text-gray-800" href="/login">Login</a>
+                            <button type="submit"
+                                    class="py-2 px-4 w-full text-center rounded bg-gray-800 text-gray-200">
+                                {{ __('Register') }}
+                            </button>
                         </div>
                     </form>
                 </div>
             </div>
+            <div class="mt-2 text-gray-700">
+                Already have an account, <a class="font-medium text-gray-900" href="/login">Login</a> here
+            </div>
         </div>
+
     </div>
 @endsection
