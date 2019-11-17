@@ -48,6 +48,9 @@ class DefaultPreset extends LaravelPreset
         if (!File::exists(resource_path('ts/shims'))) {
             File::makeDirectory(resource_path('ts/shims'));
         }
+        if (!File::exists(resource_path('ts/blocs'))) {
+            File::makeDirectory(resource_path('ts/blocs'));
+        }
     }
 
     protected static function updatePackageArray($packages)
@@ -72,6 +75,8 @@ class DefaultPreset extends LaravelPreset
             'rxjs' => '^6.5.3',
             'vuex' => '3.1.2',
             'vue-router' => '3.1.3',
+            'vue-typescript-inject' => '^0.3.0',
+            'reflect-metadata' => '^0.1.13',
         ];
     }
 
@@ -94,8 +99,10 @@ class DefaultPreset extends LaravelPreset
         File::copy(__DIR__ . '/../stubs/ui-stubs/pages/HomePage.vue', resource_path('ts/pages/HomePage.vue'));
         File::copy(__DIR__ . '/../stubs/ui-stubs/App.vue', resource_path('ts/App.vue'));
 
-        File::copy(__DIR__ . '/../stubs/ui-stubs/shims/vue-shim.d.ts', resource_path('ts/shims/vue-shim.d.ts'));
         File::copy(__DIR__ . '/../stubs/ui-stubs/shims/shims-$http.d.ts', resource_path('ts/shims/shims-$http.d.ts'));
+
+        File::copy(__DIR__ . '/../stubs/ui-stubs/shims/vue-shim.d.ts', resource_path('ts/shims/vue-shim.d.ts'));
+        File::copy(__DIR__ . '/../stubs/ui-stubs/blocs/user_bloc.ts', resource_path('ts/blocs/user_bloc.ts'));
     }
 
     private static function updateStyleSheets()

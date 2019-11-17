@@ -2,7 +2,6 @@
 
 namespace FritsStegmann\Preset;
 
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
 
 class PresetServiceProvider extends ServiceProvider
@@ -37,7 +36,8 @@ class PresetServiceProvider extends ServiceProvider
 
         if (class_exists('\Laravel\Ui\AuthCommand')) {
             \Laravel\Ui\AuthCommand::macro('tailwind', function ($command) {
-                AuthCommandPreset::install();
+                $command->info('installing tailwind auth scaffolding');
+                TailwindAuthCommandPreset::install();
             });
         }
     }

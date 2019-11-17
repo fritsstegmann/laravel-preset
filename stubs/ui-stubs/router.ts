@@ -7,10 +7,10 @@ Vue.use(VueRouter);
 
 export default new VueRouter({
     base: '',
+    mode: "history",
     routes: [
         {
-            path: '',
-            name: '',
+            path: '/home',
             component: HomePage,
         },
     ],

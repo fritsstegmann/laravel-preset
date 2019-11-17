@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Laravel\Ui\AuthCommand;
 
-class AuthCommandPreset extends LaravelPreset
+class TailwindAuthCommandPreset extends LaravelPreset
 {
     public static function install()
     {
@@ -24,8 +24,8 @@ class AuthCommandPreset extends LaravelPreset
             'layouts/auth.stub' => 'layouts/auth.blade.php',
         ];
 
-        AuthCommandPreset::ensureDirectoriesExist();
-        AuthCommandPreset::exportViews($views);
+        self::ensureDirectoriesExist();
+        self::exportViews($views);
 
         File::copy(__DIR__ . '/../stubs/auth-stubs/welcome.stub', resource_path('views/welcome.blade.php'));
         File::copy(__DIR__ . '/../stubs/auth-stubs/router.ts', resource_path('ts/router.ts'));

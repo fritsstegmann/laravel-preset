@@ -3,15 +3,18 @@ import "./bootstrap";
 import Vue from 'vue';
 
 import VueRx from 'vue-rx';
-Vue.use(VueRx);
-
 import {AxiosPlugin} from './http';
-Vue.use(AxiosPlugin);
-
+import VueTypeScriptInject from "vue-typescript-inject";
 import router from './router';
 import store from './store';
 
 import App from './App.vue';
+
+Vue.use(VueRx);
+
+Vue.use(AxiosPlugin);
+
+Vue.use(VueTypeScriptInject);
 
 new Vue({
     router,
