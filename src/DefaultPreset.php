@@ -75,7 +75,6 @@ class DefaultPreset extends LaravelPreset
             'rxjs' => '^6.5.3',
             'vuex' => '3.1.2',
             'vue-router' => '3.1.3',
-            'vue-typescript-inject' => '^0.3.0',
             'reflect-metadata' => '^0.1.13',
         ];
     }
@@ -102,6 +101,10 @@ class DefaultPreset extends LaravelPreset
         File::copy(__DIR__ . '/../stubs/ui-stubs/shims/shims-$http.d.ts', resource_path('ts/shims/shims-$http.d.ts'));
 
         File::copy(__DIR__ . '/../stubs/ui-stubs/shims/vue-shim.d.ts', resource_path('ts/shims/vue-shim.d.ts'));
+
+        File::copy(__DIR__ . '/../stubs/ui-stubs/VueBlocProvider.ts', resource_path('ts/VueBlocProvider.ts'));
+
+        File::copy(__DIR__ . '/../stubs/ui-stubs/blocs/_vue_bloc.ts', resource_path('ts/blocs/_vue_bloc.ts'));
         File::copy(__DIR__ . '/../stubs/ui-stubs/blocs/user_bloc.ts', resource_path('ts/blocs/user_bloc.ts'));
     }
 

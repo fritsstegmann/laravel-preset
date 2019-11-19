@@ -1,7 +1,7 @@
 <template>
     <div class="container">
-        <div class="bg-white shadow">
-            <div class="px-4 py-2 bg-gray-100 text-gray-600">Dashboard</div>
+        <div class="bg-white shadow rounded">
+            <div class="px-4 py-2 bg-gray-100 text-gray-600 rounded">Dashboard</div>
 
             <div class="p-4 text-gray-800">
                 You are logged in! <span v-if="user">{{ user.name }}</span>
