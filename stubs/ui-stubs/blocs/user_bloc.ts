@@ -1,33 +1,18 @@
 import "reflect-metadata";
 import {BehaviorSubject} from "rxjs";
-import {injectable} from "vue-typescript-inject";
-import axios from "axios";
+import VueBloc from "./_vue_bloc";
 
 
-@injectable()
-export class UserBloc {
-    private readonly _http = axios.create({
-        timeout: 30000,
-    });
-    private readonly _user: BehaviorSubject<any> = new BehaviorSubject<any>();
-
-
-    constructor() {
-        console.info('creating service');
-    }
+export class UserBloc extends VueBloc {
+    private readonly _user: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
     get user(): BehaviorSubject<any> {
         return this._user;
     }
 
     public fetchUser() {
-        this._http.get('/api/user').then(({data}) => {
+        this.$vue.$http.get('/api/user').then(({data}) => {
             this._user.next(data);
         });
     }
 }
-
-export const userBloc = {
-    provide: UserBloc,
-    useValue: new UserBloc()
-};

@@ -11,9 +11,8 @@
 </template>
 
 <script lang="ts">
-    import {Component, Vue} from "vue-property-decorator";
-    import {userBloc, UserBloc} from "../blocs/user_bloc";
-    import {inject} from "vue-typescript-inject";
+    import {Component, Inject, Vue} from "vue-property-decorator";
+    import {UserBloc} from "../blocs/user_bloc";
 
     @Component<HomePage>({
         components: {},
@@ -26,11 +25,10 @@
                 user: null,
             };
         },
-        providers: [userBloc],
     })
     export default class HomePage extends Vue {
 
-        @inject(UserBloc) private readonly userBloc!: UserBloc;
+        @Inject('userBloc') private readonly userBloc!: UserBloc;
 
         private user?: any;
 
