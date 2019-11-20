@@ -47,7 +47,7 @@
                         <div class="mt-8 sm:flex">
                             <div class="flex-grow">
                                 <div>
-                                    <input type="checkbox" class="-mt-1 form-checkbox" name="remember"
+                                    <input type="checkbox" class="-mt-1 form-checkbox text-gray-700" name="remember"
                                            id="remember" {{ old('remember') ? 'checked' : '' }}>
 
                                     <label for="remember">
