@@ -17,7 +17,7 @@
 
                             <div class="mt-2">
                                 <input id="name" type="text"
-                                       class="py-2 px-4 w-full outline-none rounded border-gray-500 bg-gray-100 border-solid border @error('name') bg-red-100 border-red-500 @enderror"
+                                       class="py-2 px-4 w-full outline-none rounded border-gray-500 bg-gray-100 bg-gray-100 shadow-inner @error('name') bg-red-100 border-red-500 @enderror"
                                        name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
                                 @error('name')
@@ -34,7 +34,7 @@
 
                             <div class="mt-2">
                                 <input id="email" type="email"
-                                       class="py-2 px-4 w-full outline-none rounded border-gray-500 bg-gray-100 border-solid border @error('email') bg-red-100 border-red-500 @enderror"
+                                       class="py-2 px-4 w-full outline-none rounded border-gray-500 bg-gray-100 bg-gray-100 shadow-inner @error('email') bg-red-100 border-red-500 @enderror"
                                        name="email" value="{{ old('email') }}" required autocomplete="email">
 
                                 @error('email')
@@ -50,7 +50,7 @@
                                    class="text-gray-800">{{ __('Password') }}</label>
 
                             <input id="password" type="password"
-                                   class="mt-2 py-2 px-4 w-full outline-none rounded border-gray-500 bg-gray-100 border-solid border text-gray-800 @error('password') bg-red-100 border-red-500 @enderror"
+                                   class="mt-2 py-2 px-4 w-full outline-none rounded border-gray-500 bg-gray-100 bg-gray-100 shadow-inner @error('password') bg-red-100 border-red-500 @enderror"
                                    name="password"
                                    required autocomplete="new-password">
 
@@ -66,7 +66,7 @@
                                    class="text-gray-800">{{ __('Confirm Password') }}</label>
 
                             <input id="password-confirm" type="password"
-                                   class="mt-2 py-2 px-4 w-full outline-none rounded border-gray-500 bg-gray-100 border-solid border text-gray-800"
+                                   class="mt-2 py-2 px-4 w-full outline-none rounded border-gray-500 bg-gray-100 bg-gray-100 shadow-inner"
                                    name="password_confirmation" required autocomplete="new-password">
                         </div>
 

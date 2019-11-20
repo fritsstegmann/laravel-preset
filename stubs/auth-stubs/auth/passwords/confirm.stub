@@ -1,10 +1,10 @@
 @extends('layouts.auth')
 
 @section('content')
-    <div class="container mx-auto">
-        <div class="w-96 mx-auto">
-            <div class="mt-20">
-                <div class="mt-2 pt-4 pb-8 px-8 bg-white shadow rounded">
+    <div class="container sm:mx-auto">
+        <div class="sm:w-96 sm:mx-auto">
+            <div class="sm:mt-20">
+                <div class="mt-2 sm:pt-4 pb-8 px-8 bg-white sm:shadow sm:rounded">
                     <div class="uppercase text-sm text-gray-600 tracking-wider">{{ __('Confirm Password') }}</div>
 
                     <div class="mt-4 text-gray-700 text-sm p-2 rounded-sm bg-gray-300 text-gray-700">
@@ -20,7 +20,7 @@
 
                             <div class="">
                                 <input id="password" type="password"
-                                       class="mt-2 py-2 px-4 w-full outline-none rounded border-gray-500 bg-gray-100 border-solid border text-gray-800 @error('password') bg-red-100 border-red-500 @enderror"
+                                       class="mt-2 py-2 px-4 w-full outline-none rounded border-gray-500 bg-gray-100 bg-gray-100 shadow-inner @error('password') bg-red-100 border-red-500 @enderror"
                                        name="password"
                                        required autocomplete="current-password">
 
@@ -38,7 +38,7 @@
                                 </button>
 
                                 @if (Route::has('password.request'))
-                                    <a class="block mt-4 underline" href="{{ route('password.request') }}">
+                                    <a class="block mt-4 block text-gray-600 underline hover:text-gray-800" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 @endif

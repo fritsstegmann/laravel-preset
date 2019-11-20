@@ -76,6 +76,7 @@ class DefaultPreset extends LaravelPreset
             'vuex' => '3.1.2',
             'vue-router' => '3.1.3',
             'reflect-metadata' => '^0.1.13',
+            '@tailwindcss/custom-forms' => '^0.2.1',
         ];
     }
 
