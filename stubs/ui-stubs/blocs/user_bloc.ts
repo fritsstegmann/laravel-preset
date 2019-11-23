@@ -13,6 +13,8 @@ export class UserBloc extends VueBloc {
     public fetchUser() {
         this.$vue.$http.get('/api/user').then(({data}) => {
             this._user.next(data);
+        }).catch((err) => {
+            this._user.error(err);
         });
     }
 }

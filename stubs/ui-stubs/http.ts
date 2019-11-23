@@ -2,13 +2,19 @@ import Vue from 'vue';
 import axios from 'axios';
 
 interface AxiosPluginOptions {
+    timeout: number;
 }
 
-export function AxiosPlugin(v: typeof Vue, options: any): void {
+export function AxiosPlugin(v: typeof Vue, options: AxiosPluginOptions): void {
 
-    const httpClient = axios.create({
-        timeout: 30000,
+    let timeout = 10000;
+
+    if (options.timeout) {
+        timeout = options.timeout;
+    }
+
+    v.prototype.$http = axios.create({
+        timeout: timeout,
+
     });
-
-    v.prototype.$http = httpClient;
 }

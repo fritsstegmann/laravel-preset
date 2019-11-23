@@ -14,6 +14,6 @@ export default class VueBlocProvider extends Vue {
 
     render() {
         // @ts-ignore
-        return this.$slots.default[0];
+        return this.$slots.default;
     }
 }

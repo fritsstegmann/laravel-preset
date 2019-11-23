@@ -1,10 +1,10 @@
 <template>
-    <div class="container">
+    <div class="container m-auto">
+        <div class="py-2 uppercase tracking-wider text-sm text-gray-600 rounded">Dashboard</div>
         <div class="bg-white shadow rounded">
-            <div class="px-4 py-2 bg-gray-100 text-gray-600 rounded">Dashboard</div>
-
             <div class="p-4 text-gray-800">
-                You are logged in! <span v-if="user">{{ user.name }}</span>
+                <span v-if="error">{{ error }}</span>
+                <span v-if="user">You are logged in! {{ user.name }}</span>
             </div>
         </div>
     </div>
@@ -23,6 +23,7 @@
         data() {
             return {
                 user: null,
+                error: null,
             };
         },
     })
@@ -31,10 +32,14 @@
         @Inject('userBloc') private readonly userBloc!: UserBloc;
 
         private user?: any;
+        private error?: string;
 
         created() {
             this.userBloc.user.subscribe((user) => {
                 this.user = user;
+                this.error = undefined;
+            }, error => {
+                this.error = error;
             });
         }
 

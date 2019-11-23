@@ -20,6 +20,7 @@ class DefaultPreset extends LaravelPreset
         self::installTailwindCSS();
         self::installWelcomePage();
         self::cleanJs();
+        self::addJestToPackageJsonFile();
     }
 
     private static function cleanJs()
@@ -60,6 +61,36 @@ class DefaultPreset extends LaravelPreset
         ]));
     }
 
+    private static function addJestToPackageJsonFile()
+    {
+        $jestConfig = [
+            "moduleFileExtensions" => [
+                "js",
+                "ts",
+                "json",
+                "vue"
+            ],
+            "transform" => [
+                ".*\\.(vue)$" => "vue-jest",
+                "^.+\\.tsx?$" => "ts-jest"
+            ],
+            "testURL" => "http://127.0.0.1:8000/",
+        ];
+
+        if (! file_exists(base_path('package.json'))) {
+            return;
+        }
+
+        $packages = json_decode(file_get_contents(base_path('package.json')), true);
+
+        $packages['jest'] = $jestConfig;
+
+        file_put_contents(
+            base_path('package.json'),
+            json_encode($packages, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT).PHP_EOL
+        );
+    }
+
     private static function newPackages()
     {
         return [
@@ -77,6 +108,12 @@ class DefaultPreset extends LaravelPreset
             'vue-router' => '3.1.3',
             'reflect-metadata' => '^0.1.13',
             '@tailwindcss/custom-forms' => '^0.2.1',
+            "@types/jest" => "^24.0.23",
+            "@vue/test-utils" => "^1.0.0-beta.29",
+            "babel-core" => "^6.26.3",
+            "jest" => "^24.9.0",
+            "ts-jest" => "^24.1.0",
+            "vue-jest" => "^3.0.5",
         ];
     }
 

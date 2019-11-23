@@ -11,11 +11,13 @@ import App from './App.vue';
 
 Vue.use(VueRx);
 
-Vue.use(AxiosPlugin);
+Vue.use(AxiosPlugin, {
+    timeout: 5000,
+});
 
 new Vue({
     router,
     store,
     el: '#app',
-    render: h => h(App)
+    render: h => h(App),
 });

@@ -16,7 +16,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body class="bg-white sm:bg-gray-100">
+<body class="bg-white sm:bg-gray-200">
 <div>
     <nav class="bg-white h-16">
         <div class="flex container m-auto">
@@ -43,7 +43,7 @@
                         </div>
 
                         <div class="ml-4">
-                            <a class="py-2 px-4 rounded-lg text-gray-700 shadow bg-gray-300" href="{{ route('logout') }}"
+                            <a class="py-2 px-4 rounded shadow text-gray-300 bg-gray-700" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                 {{ __('Logout') }}
