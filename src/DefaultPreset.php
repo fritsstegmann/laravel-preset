@@ -124,7 +124,6 @@ class DefaultPreset extends LaravelPreset
 
     private static function updateTypeScript()
     {
-        File::copy(__DIR__ . '/../stubs/ui-stubs/bootstrap.ts', resource_path('ts/bootstrap.ts'));
         File::copy(__DIR__ . '/../stubs/ui-stubs/app.ts', resource_path('ts/app.ts'));
 
         File::copy(__DIR__ . '/../stubs/ui-stubs/store.ts', resource_path('ts/store.ts'));
