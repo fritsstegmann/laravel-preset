@@ -1,7 +1,12 @@
 <template>
     <div>
         <VueBlocProvider :provides="blocs">
-            <router-view/>
+            <div>
+                <Header></Header>
+                <main class="mt-4 container m-auto">
+                    <router-view/>
+                </main>
+            </div>
         </VueBlocProvider>
     </div>
 </template>
@@ -10,9 +15,10 @@
     import {Component, Vue} from "vue-property-decorator";
     import VueBlocProvider from "./VueBlocProvider";
     import {UserBloc} from "./blocs/user_bloc";
+    import Header from "./components/Header.vue";
 
     @Component<App>({
-        components: {VueBlocProvider},
+        components: {VueBlocProvider, Header},
         props: [],
         subscriptions() {
             return {};
