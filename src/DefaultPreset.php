@@ -52,6 +52,9 @@ class DefaultPreset extends LaravelPreset
         if (!File::exists(resource_path('ts/blocs'))) {
             File::makeDirectory(resource_path('ts/blocs'));
         }
+        if (!File::exists(resource_path('ts/components'))) {
+            File::makeDirectory(resource_path('ts/components'));
+        }
     }
 
     protected static function updatePackageArray($packages)
@@ -77,7 +80,7 @@ class DefaultPreset extends LaravelPreset
             "testURL" => "http://127.0.0.1:8000/",
         ];
 
-        if (! file_exists(base_path('package.json'))) {
+        if (!file_exists(base_path('package.json'))) {
             return;
         }
 
@@ -87,7 +90,7 @@ class DefaultPreset extends LaravelPreset
 
         file_put_contents(
             base_path('package.json'),
-            json_encode($packages, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT).PHP_EOL
+            json_encode($packages, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . PHP_EOL
         );
     }
 
@@ -134,6 +137,7 @@ class DefaultPreset extends LaravelPreset
         File::copy(__DIR__ . '/../stubs/ui-stubs/tsconfig.json', base_path('tsconfig.json'));
 
         File::copy(__DIR__ . '/../stubs/ui-stubs/pages/HomePage.vue', resource_path('ts/pages/HomePage.vue'));
+        File::copy(__DIR__ . '/../stubs/ui-stubs/components/Header.vue', resource_path('ts/components/Header.vue'));
         File::copy(__DIR__ . '/../stubs/ui-stubs/App.vue', resource_path('ts/App.vue'));
 
         File::copy(__DIR__ . '/../stubs/ui-stubs/shims/shims-$http.d.ts', resource_path('ts/shims/shims-$http.d.ts'));
