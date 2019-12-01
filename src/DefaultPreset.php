@@ -129,6 +129,7 @@ class DefaultPreset extends LaravelPreset
         File::copy(__DIR__ . '/../stubs/ui-stubs/store.ts', resource_path('ts/store.ts'));
         File::copy(__DIR__ . '/../stubs/ui-stubs/router.ts', resource_path('ts/router.ts'));
         File::copy(__DIR__ . '/../stubs/ui-stubs/http.ts', resource_path('ts/http.ts'));
+        File::copy(__DIR__ . '/../stubs/ui-stubs/laravel.ts', resource_path('ts/laravel.ts'));
 
         File::copy(__DIR__ . '/../stubs/ui-stubs/tsconfig.json', base_path('tsconfig.json'));
 
