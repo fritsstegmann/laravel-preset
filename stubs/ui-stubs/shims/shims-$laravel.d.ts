@@ -6,6 +6,7 @@ declare module 'vue/types/vue' {
         $laravel: {
             appName: string,
             userName: string,
+            userEmail: string,
             isAuth: boolean,
         };
     }

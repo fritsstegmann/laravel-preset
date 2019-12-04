@@ -4,17 +4,17 @@ import VueBloc from "./_vue_bloc";
 
 
 export class UserBloc extends VueBloc {
-    private readonly _user: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+    private readonly _me: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-    get user(): BehaviorSubject<any> {
-        return this._user;
+    get me(): BehaviorSubject<any> {
+        return this._me;
     }
 
-    public fetchUser() {
-        this.$vue.$http.get('/api/user').then(({data}) => {
-            this._user.next(data);
+    public fetchMe() {
+        this.$vue.$http.get('/api/me').then(({data}) => {
+            this._me.next(data);
         }).catch((err) => {
-            this._user.error(err);
+            this._me.error(err);
         });
     }
 }
