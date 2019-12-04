@@ -35,7 +35,7 @@
         private error?: string;
 
         created() {
-            this.userBloc.user.subscribe((user) => {
+            this.userBloc.me.subscribe((user) => {
                 this.user = user;
                 this.error = undefined;
             }, error => {
@@ -44,7 +44,7 @@
         }
 
         mounted() {
-            this.userBloc.fetchUser();
+            this.userBloc.fetchMe();
         }
     }
 </script>

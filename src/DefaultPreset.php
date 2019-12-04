@@ -138,10 +138,13 @@ class DefaultPreset extends LaravelPreset
 
         File::copy(__DIR__ . '/../stubs/ui-stubs/pages/HomePage.vue', resource_path('ts/pages/HomePage.vue'));
         File::copy(__DIR__ . '/../stubs/ui-stubs/components/Header.vue', resource_path('ts/components/Header.vue'));
+        File::copy(__DIR__ . '/../stubs/ui-stubs/components/GravatarImg.vue',
+            resource_path('ts/components/Header.vue'));
         File::copy(__DIR__ . '/../stubs/ui-stubs/App.vue', resource_path('ts/App.vue'));
 
         File::copy(__DIR__ . '/../stubs/ui-stubs/shims/shims-$http.d.ts', resource_path('ts/shims/shims-$http.d.ts'));
-        File::copy(__DIR__ . '/../stubs/ui-stubs/shims/shims-$laravel.d.ts', resource_path('ts/shims/shims-$laravel.d.ts'));
+        File::copy(__DIR__ . '/../stubs/ui-stubs/shims/shims-$laravel.d.ts',
+            resource_path('ts/shims/shims-$laravel.d.ts'));
         File::copy(__DIR__ . '/../stubs/ui-stubs/shims/vue-shim.d.ts', resource_path('ts/shims/vue-shim.d.ts'));
 
         File::copy(__DIR__ . '/../stubs/ui-stubs/VueBlocProvider.ts', resource_path('ts/VueBlocProvider.ts'));
