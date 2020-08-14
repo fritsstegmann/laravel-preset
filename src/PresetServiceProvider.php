@@ -22,22 +22,9 @@ class PresetServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if (class_exists('\Illuminate\Foundation\Console\PresetCommand')) {
-            \Illuminate\Foundation\Console\PresetCommand::macro('vuets', function ($command) {
-                DefaultPreset::install();
-            });
-        }
-
         if (class_exists('Laravel\Ui\UiCommand')) {
             \Laravel\Ui\UiCommand::macro('vuets', function ($command) {
                 DefaultPreset::install();
-            });
-        }
-
-        if (class_exists('\Laravel\Ui\AuthCommand')) {
-            \Laravel\Ui\AuthCommand::macro('tailwind', function ($command) {
-                $command->info('installing tailwind auth scaffolding');
-                TailwindAuthCommandPreset::install();
             });
         }
     }

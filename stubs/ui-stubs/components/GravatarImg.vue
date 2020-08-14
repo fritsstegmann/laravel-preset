@@ -1,89 +1,59 @@
 <template>
     <img
-            class="h-10 rounded-full"
-            v-bind="attrs"
-            v-on="listeners"
-            :src="url"
-            :alt="email"
-            @load="onLoad"
-            @error="onError"
+        class="rounded-full"
+        :src="url"
+        :alt="email"
+        @load="onLoad"
+        @error="onError"
     />
 </template>
 
-<script>
-    import md5 from 'md5';
+<script lang="ts">
+// @ts-ignore
+import md5 from 'md5';
+import {Component, Prop, Vue} from "vue-property-decorator";
 
-    export default {
-        name: 'gravatar-img',
+@Component({
+    inheritAttrs: false
+})
+export default class GravatarImg extends Vue {
 
-        inheritAttrs: false,
+    @Prop({default: ''})
+    private email!: string
 
-        props: {
-            email: {
-                type: String,
-                default: ''
-            },
+    @Prop({default: ''})
+    private hash!: string
 
-            hash: {
-                type: String,
-                default: ''
-            },
+    @Prop({default: 80})
+    private size!: number
 
-            size: {
-                type: Number,
-                default: 80
-            },
+    @Prop({default: ''})
+    private defaultImg!: string
 
-            defaultImg: {
-                type: String,
-                default: 'retro'
-            },
+    @Prop({default: 'g'})
+    private rating!: string
 
-            rating: {
-                type: String,
-                default: 'g'
-            },
+    @Prop({default: 'Avatar'})
+    private alt!: string
 
-            alt: {
-                type: String,
-                default: 'Avatar'
-            }
-        },
+    get url() {
+        const img = [
+            '//www.gravatar.com/avatar/',
+            this.hash || md5(this.email.trim().toLowerCase()),
+            `?s=${this.size}`,
+            `&d=${this.defaultImg}`,
+            `&r=${this.rating}`,
+        ];
 
-        computed: {
-            url() {
-                const img = [
-                    '//www.gravatar.com/avatar/',
-                    this.hash || md5(this.email.trim().toLowerCase()),
-                    `?s=${this.size}`,
-                    `&d=${this.defaultImg}`,
-                    `&r=${this.rating}`,
-                ];
+        return img.join('');
+    }
 
-                return img.join('');
-            },
+    onLoad(...args: any) {
+        this.$emit('load', ...args);
+    }
 
-            listeners() {
-                const { load, error, ...listeners } = this.$listeners;
-
-                return listeners;
-            },
-
-            attrs() {
-                const { src, alt, ...attrs } = this.$attrs;
-
-                return attrs;
-            }
-        },
-
-        methods: {
-            onLoad(...args) {
-                this.$emit('load', ...args);
-            },
-
-            onError(...args) {
-                this.$emit('error', ...args);
-            }
-        }
-    };
+    onError(...args: any) {
+        this.$emit('error', ...args);
+    }
+}
 </script>

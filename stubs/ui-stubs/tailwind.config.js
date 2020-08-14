@@ -1,15 +1,9 @@
-// tailwind.config.js
 module.exports = {
+    purge: [],
     theme: {
-        extend: {
-            spacing: {
-                '96': '24rem',
-                '128': '32rem'
-            }
-        }
+      extend: {},
     },
     variants: {},
-    plugins: [
-        require('@tailwindcss/custom-forms')
-    ]
-};
+    plugins: [],
+  }
+  

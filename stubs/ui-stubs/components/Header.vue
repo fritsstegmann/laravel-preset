@@ -3,23 +3,26 @@
         <div class="flex container m-auto justify-between">
             <a class="ml-2 sm:ml-0 mt-6 text-gray-700 text-lg leading-none tracking-wide focus:shadow-outline outline-none"
                href="/home">
-                {{ appName }}
+                Books
             </a>
             <!-- Right Side Of Navbar -->
             <ul class="mt-3 ml-auto">
                 <!-- Authentication Links -->
-                <li class="flex relative">
+                <li class="flex relative" v-if="me">
                     <button @click="displayDropdown = !displayDropdown"
                             class="mr-2 sm:mr-0 relative z-10 block focus:shadow-outline focus:outline-none outline-none h-10 w-10 rounded-full shadow-inner overflow-hidden border-2">
-                        <GravatarImg :email="$laravel.userEmail"></GravatarImg>
+                        <GravatarImg
+                            :email="me.email"
+                        />
                     </button>
                     <button @click="displayDropdown = false" v-if="displayDropdown"
                             class="fixed w-full h-full inset-0 bg-black opacity-25 cursor-default"/>
                     <div v-if="displayDropdown"
                          class="mr-2 sm:mr-0 absolute right-0 mt-12 w-48 bg-white py-2 block rounded-lg shadow-lg">
-                        <a class="block px-4 py-2 text-gray-800 hover:bg-gray-700 hover:text-white" href="#">
+                        <router-link to="/profile-settings"
+                                     class="block px-4 py-2 text-gray-800 hover:bg-gray-700 hover:text-white">
                             Profile Settings
-                        </a>
+                        </router-link>
                         <a class="block px-4 py-2 text-gray-800 hover:bg-gray-700 hover:text-white" href="#"
                            @click.prevent="logout">
                             Logout
@@ -32,57 +35,46 @@
 </template>
 
 <script lang="ts">
-    import {Component, Vue} from "vue-property-decorator";
-    import GravatarImg from "./GravatarImg.vue";
+import {Component, Inject, Vue} from "vue-property-decorator";
+import AuthBloc from "../blocs/AuthBloc";
+import GravatarImg from "../components/GravatarImg.vue";
 
-    @Component<Header>({
-        components: {GravatarImg},
-        subscriptions() {
-            return {}
-        },
-        props: [],
-        data() {
-            return {
-                'appName': null,
-                'userName': null,
-                'isAuth': null,
-                'displayDropdown': false,
-            };
-        }
-    })
-    export default class Header extends Vue {
-        private appName?: string;
-        private userName?: string;
-        private isAuth?: boolean;
-        private displayDropdown?: boolean = false;
+@Component({
+    components: {GravatarImg}
+})
+export default class Header extends Vue {
+    private displayDropdown?: boolean = false;
 
-        created() {
-            const handleEscape = (e: KeyboardEvent) => {
-                if (e.key === 'Esc' || e.key === 'Escape') {
-                    this.displayDropdown = false;
-                }
-            };
+    @Inject('authBloc')
+    private authBloc!: AuthBloc
 
-            document.addEventListener('keydown', handleEscape);
+    private me: any = null
 
-            this.$once('hook:beforeDestroy', () => {
-                document.removeEventListener('keydown', handleEscape);
-            });
-        }
+    created() {
+        this.$subscribeTo(this.authBloc.me, (me: any) => {
+            this.me = me
+        }, (err: any) => {
+            console.error(err)
+        })
 
-        mounted() {
-            this.appName = this.$laravel.appName;
-            this.userName = this.$laravel.userName;
-            this.isAuth = this.$laravel.isAuth;
-        }
+        const handleEscape = (e: KeyboardEvent) => {
+            if (e.key === 'Esc' || e.key === 'Escape') {
+                this.displayDropdown = false;
+            }
+        };
 
-        logout() {
-            this.$http.post('/logout').then(() => {
-                window.location.href = "/";
-            });
-        }
+        document.addEventListener('keydown', handleEscape);
+
+        this.$once('hook:beforeDestroy', () => {
+            document.removeEventListener('keydown', handleEscape);
+        });
     }
-</script>
 
-<style scoped lang="scss">
-</style>
+    mounted() {
+    }
+
+    logout() {
+        this.authBloc.logout()
+    }
+}
+</script>

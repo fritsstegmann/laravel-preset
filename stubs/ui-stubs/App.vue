@@ -1,44 +1,39 @@
 <template>
-    <div>
-        <VueBlocProvider :provides="blocs">
-            <div>
-                <Header></Header>
-                <main class="mt-4 container m-auto">
-                    <router-view/>
-                </main>
-            </div>
-        </VueBlocProvider>
-    </div>
+    <VueBlocProvider :provides="blocs">
+        <router-view/>
+    </VueBlocProvider>
 </template>
 
 <script lang="ts">
-    import {Component, Vue} from "vue-property-decorator";
-    import VueBlocProvider from "./VueBlocProvider";
-    import {UserBloc} from "./blocs/user_bloc";
-    import Header from "./components/Header.vue";
+import {Component, Vue} from "vue-property-decorator";
+import VueBlocProvider from "./VueBlocProvider";
+import AuthBloc from "./blocs/AuthBloc";
+import UserRepository from "./repository/UserRepository";
+import axios from 'axios';
 
-    @Component<App>({
-        components: {VueBlocProvider, Header},
-        props: [],
-        subscriptions() {
-            return {};
-        },
-        data() {
-            return {
-                blocs: {}
-            };
-        }
-    })
-    export default class App extends Vue {
-        private blocs: object = {};
+@Component({
+    components: {VueBlocProvider},
+})
+export default class App extends Vue {
+    private blocs: object = {};
 
-        created() {
-            this.blocs = {
-                'userBloc': new UserBloc(this),
+    created() {
+        const axiosInstance = axios.create({
+            withCredentials: true,
+            headers: {
+                common: {
+                    'Content-Type': 'application/json',
+                    'X-Request-With': 'XMlHtppRequest'
+                }
             }
+        })
+
+        const authBloc = new AuthBloc(new UserRepository(axiosInstance))
+        authBloc.getMe()
+
+        this.blocs = {
+            'authBloc': authBloc
         }
     }
+}
 </script>
-
-<style scoped lang="scss">
-</style>
