@@ -3,7 +3,7 @@
         <div class="flex container m-auto justify-between">
             <a class="ml-2 sm:ml-0 mt-6 text-gray-700 text-lg leading-none tracking-wide focus:shadow-outline outline-none"
                href="/home">
-                Books
+                Laravel
             </a>
             <!-- Right Side Of Navbar -->
             <ul class="mt-3 ml-auto">
