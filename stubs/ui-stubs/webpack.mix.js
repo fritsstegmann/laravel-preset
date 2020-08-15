@@ -15,4 +15,19 @@ require('tailwind-mix');
 mix
     .ts('resources/ts/app.ts', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
-    .tailwind();
+    .tailwind('./tailwind.config.js')
+    .disableNotifications()
+    .options({
+        hmrOptions: {
+            host: "localhost",
+            port: 3000
+        }
+    })
+    .webpackConfig({
+        devServer: {
+            proxy: {
+                '*': 'http://localhost:8000'
+            }
+        }
+    })
+
