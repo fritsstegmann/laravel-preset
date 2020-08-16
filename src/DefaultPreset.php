@@ -10,6 +10,7 @@ class DefaultPreset extends LaravelPreset
 {
     public static function install()
     {
+        self::installPHPPackages();
         self::cleanDirectory();
         self::deleteJSDirectory();
         self::createTSDirectory();
@@ -18,6 +19,65 @@ class DefaultPreset extends LaravelPreset
         self::updateResourceFiles();
         self::cleanJs();
         self::addJestToPackageJsonFile();
+        self::updatePHP();
+    }
+
+    private static function installPHPPackages()
+    {
+        $composer = json_decode(file_get_contents(base_path('composer.json')), true);
+        $requireDevList = $composer['require-dev'];
+        $requireList = $composer['require'];
+
+        $requireList = array_merge(
+            [
+                "laravel/sanctum" => '^2.4'
+            ],
+            $requireList
+        );
+
+        $requireDevList = array_merge(
+            [
+                "squizlabs/php_codesniffer" => "^3.0",
+                "phpmd/phpmd" => "@stable",
+                "barryvdh/laravel-ide-helper" => "^2.8",
+            ],
+            Arr::except(
+                $requireDevList,
+                [
+                    'squizlabs/php_codesniffer',
+                    'phpmd/phpmd',
+                ]
+            )
+        );
+
+        $dontDiscover = $composer['extra']['laravel']['dont-discover'];
+        $dontDiscover = array_merge(
+            [
+                "barryvdh/laravel-ide-helper",
+            ],
+            $dontDiscover
+        );
+
+        $scripts = array_merge(
+            ['phpcs' => 'composer dump-autoload && phpcs --standard=PSR1 ./app && phpcs --standard=PSR12 ./app && phpmd ./app text phpmd.xml && phpunit -c ./phpunit.xml && php artisan migrate:refresh --seed --force'],
+            [
+                'post-update-cmd' => [
+                    "Illuminate\\Foundation\\ComposerScripts::postUpdate",
+                    "@php artisan ide-helper:generate",
+                    "@php artisan ide-helper:meta"
+                ],
+            ],
+            $composer['scripts']
+        );
+
+        $composer['extra']['laravel']['dont-discover'] = $dontDiscover;
+        $composer['scripts'] = $scripts;
+        $composer['require'] = $requireList;
+        $composer['require-dev'] = $requireDevList;
+        file_put_contents(
+            base_path('composer.json'),
+            json_encode($composer, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . PHP_EOL
+        );
     }
 
     private static function cleanJs()
@@ -128,8 +188,16 @@ class DefaultPreset extends LaravelPreset
         ];
     }
 
+    private static function updatePHP()
+    {
+        File::copy(__DIR__ . '/../stubs/AppServiceProvider.php', base_path('app/Providers/AppServiceProvider.php'));
+        File::copy(__DIR__ . '/../stubs/ide-helper.php', base_path('config/ide-helper.php'));
+        File::copy(__DIR__ . '/../stubs/sanctum.php', base_path('config/sanctum.php'));
+    }
+
     private static function updateBaseFiles()
     {
+        File::copy(__DIR__ . '/../stubs/.gitignore.stub', base_path('.gitignore'));
         File::copy(__DIR__ . '/../stubs/webpack.mix.js', base_path('webpack.mix.js'));
         File::copy(__DIR__ . '/../stubs/.eslintignore', base_path('.eslintignore'));
         File::copy(__DIR__ . '/../stubs/.editorconfig', base_path('.editorconfig'));
