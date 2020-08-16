@@ -14,10 +14,8 @@ class DefaultPreset extends LaravelPreset
         self::deleteJSDirectory();
         self::createTSDirectory();
         self::updatePackages();
-        self::updateMix();
-        self::updateTypeScript();
-        self::updateStyleSheets();
-        self::installTailwindCSS();
+        self::updateBaseFiles();
+        self::updateResourceFiles();
         self::cleanJs();
         self::addJestToPackageJsonFile();
     }
@@ -58,12 +56,18 @@ class DefaultPreset extends LaravelPreset
 
     protected static function updatePackageArray($packages)
     {
-        return array_merge(self::newPackages(), Arr::except($packages, [
-            'lodash',
-            'query',
-            'popper.js',
-            'bootstrap',
-        ]));
+        return array_merge(
+            self::newPackages(),
+            Arr::except(
+                $packages,
+                [
+                    'lodash',
+                    'query',
+                    'popper.js',
+                    'bootstrap',
+                ]
+            )
+        );
     }
 
     private static function addJestToPackageJsonFile()
@@ -120,34 +124,32 @@ class DefaultPreset extends LaravelPreset
         ];
     }
 
-    private static function updateMix()
+    private static function updateBaseFiles()
     {
-        File::copy(__DIR__ . '/../stubs/ui-stubs/webpack.mix.js', base_path('webpack.mix.js'));
+        File::copy(__DIR__ . '/../stubs/webpack.mix.js', base_path('webpack.mix.js'));
+        File::copy(__DIR__ . '/../stubs/.eslintignore', base_path('.eslintignore'));
+        File::copy(__DIR__ . '/../stubs/.eslintrc.yml', base_path('.eslintrc.yml'));
+        File::copy(__DIR__ . '/../stubs/tailwind.config.js', base_path('tailwind.config.js'));
+        File::copy(__DIR__ . '/../stubs/.php_cs.laravel.php', base_path('.php_cs.laravel.php'));
     }
 
-    private static function updateTypeScript()
+    private static function updateResourceFiles()
     {
-        File::copy(__DIR__ . '/../stubs/ui-stubs/app.ts', resource_path('ts/app.ts'));
-        File::copy(__DIR__ . '/../stubs/ui-stubs/router.ts', resource_path('ts/router.ts'));
-        File::copy(__DIR__ . '/../stubs/ui-stubs/tsconfig.json', base_path('tsconfig.json'));
-        File::copy(__DIR__ . '/../stubs/ui-stubs/pages/HomePage.vue', resource_path('ts/pages/HomePage.vue'));
-        File::copy(__DIR__ . '/../stubs/ui-stubs/pages/LoginPage.vue', resource_path('ts/pages/LoginPage.vue'));
-        File::copy(__DIR__ . '/../stubs/ui-stubs/components/Header.vue', resource_path('ts/components/Header.vue'));
-        File::copy(__DIR__ . '/../stubs/ui-stubs/components/GravatarImg.vue', resource_path('ts/components/GravatarImg.vue'));
-        File::copy(__DIR__ . '/../stubs/ui-stubs/App.vue', resource_path('ts/App.vue'));
-        File::copy(__DIR__ . '/../stubs/ui-stubs/shims/vue-shim.d.ts', resource_path('ts/shims/vue-shim.d.ts'));
-        File::copy(__DIR__ . '/../stubs/ui-stubs/VueBlocProvider.ts', resource_path('ts/VueBlocProvider.ts'));
-        File::copy(__DIR__ . '/../stubs/ui-stubs/blocs/AuthBloc.ts', resource_path('ts/blocs/AuthBloc.ts'));
-        File::copy(__DIR__ . '/../stubs/ui-stubs/repository/UserRepository.ts', resource_path('ts/repository/UserRepository.ts'));
-    }
-
-    private static function updateStyleSheets()
-    {
-        File::copy(__DIR__ . '/../stubs/ui-stubs/app.scss', resource_path('sass/app.scss'));
-    }
-
-    private static function installTailwindCSS()
-    {
-        File::copy(__DIR__ . '/../stubs/ui-stubs/tailwind.config.js', base_path('tailwind.js'));
+        File::copy(__DIR__ . '/../stubs/app.ts', resource_path('ts/app.ts'));
+        File::copy(__DIR__ . '/../stubs/router.ts', resource_path('ts/router.ts'));
+        File::copy(__DIR__ . '/../stubs/tsconfig.json', base_path('tsconfig.json'));
+        File::copy(__DIR__ . '/../stubs/pages/HomePage.vue', resource_path('ts/pages/HomePage.vue'));
+        File::copy(__DIR__ . '/../stubs//pages/LoginPage.vue', resource_path('ts/pages/LoginPage.vue'));
+        File::copy(__DIR__ . '/../stubs/components/Header.vue', resource_path('ts/components/Header.vue'));
+        File::copy(__DIR__ . '/../stubs/components/GravatarImg.vue', resource_path('ts/components/GravatarImg.vue'));
+        File::copy(__DIR__ . '/../stubs/App.vue', resource_path('ts/App.vue'));
+        File::copy(__DIR__ . '/../stubs/shims/vue-shim.d.ts', resource_path('ts/shims/vue-shim.d.ts'));
+        File::copy(__DIR__ . '/../stubs/VueBlocProvider.ts', resource_path('ts/VueBlocProvider.ts'));
+        File::copy(__DIR__ . '/../stubs/blocs/AuthBloc.ts', resource_path('ts/blocs/AuthBloc.ts'));
+        File::copy(
+            __DIR__ . '/../stubs/repository/UserRepository.ts',
+            resource_path('ts/repository/UserRepository.ts')
+        );
+        File::copy(__DIR__ . '/../stubs/app.scss', resource_path('sass/app.scss'));
     }
 }
