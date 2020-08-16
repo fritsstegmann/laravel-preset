@@ -6,19 +6,19 @@
 </template>
 
 <script lang="ts">
-import {Component, Inject, Vue} from "vue-property-decorator";
-import Header from "./components/Header.vue";
-import AuthBloc from "./blocs/AuthBloc";
+import {Component, Inject, Vue} from 'vue-property-decorator';
+import Header from './components/Header.vue';
+import AuthBloc from './blocs/AuthBloc';
 
 @Component({
-    components: {Header}
+    components: {Header},
 })
 export default class AppScaffold extends Vue {
 
     @Inject('authBloc')
     private authBloc!: AuthBloc
 
-    created() {
+    created(): void {
         this.authBloc.getMe()
     }
 }

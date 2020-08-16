@@ -3,13 +3,13 @@ import VueRouter from 'vue-router';
 
 import HomePage from './pages/HomePage.vue';
 import LoginPage from './pages/LoginPage.vue';
-import AppScaffold from "./AppScaffold.vue";
+import AppScaffold from './AppScaffold.vue';
 
 Vue.use(VueRouter);
 
 export default new VueRouter({
     base: '',
-    mode: "history",
+    mode: 'history',
     routes: [
         {
             path: '/',
@@ -18,12 +18,12 @@ export default new VueRouter({
                 {
                     path: '/home',
                     component: HomePage,
-                }
-            ]
+                },
+            ],
         },
         {
             path: '/login',
             component: LoginPage,
-        }
+        },
     ],
 });

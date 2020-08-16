@@ -55,8 +55,8 @@
 </template>
 
 <script lang="ts">
-import {Component, Inject, Vue} from "vue-property-decorator";
-import AuthBloc from "../blocs/AuthBloc";
+import {Component, Inject, Vue} from 'vue-property-decorator';
+import AuthBloc from '../blocs/AuthBloc';
 
 @Component
 export default class LoginPage extends Vue {
@@ -66,14 +66,8 @@ export default class LoginPage extends Vue {
     @Inject('authBloc')
     private authBloc!: AuthBloc
 
-    public login() {
-        this.authBloc.login(this.username, this.password).then((response) => {
-            console.info('user logged in')
-        })
+    public login(): void {
+        this.authBloc.login(this.username, this.password)
     }
 }
 </script>
-
-<style scoped>
-
-</style>

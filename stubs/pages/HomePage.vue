@@ -10,11 +10,11 @@
 </template>
 
 <script lang="ts">
-import {Component, Vue} from "vue-property-decorator";
-import Header from "../components/Header.vue";
+import {Component, Vue} from 'vue-property-decorator';
+import Header from '../components/Header.vue';
 
 @Component({
-    components: {Header}
+    components: {Header},
 })
 export default class HomePage extends Vue {
 }

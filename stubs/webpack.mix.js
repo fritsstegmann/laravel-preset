@@ -1,5 +1,6 @@
-const mix = require('laravel-mix');
-require('tailwind-mix');
+const mix = require('laravel-mix')
+require('tailwind-mix')
+require('laravel-mix-eslint-config')
 
 /*
  |--------------------------------------------------------------------------
@@ -16,7 +17,7 @@ mix
     .ts('resources/ts/app.ts', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
     .tailwind('./tailwind.config.js')
-    .disableNotifications()
+    .disableSuccessNotifications()
     .options({
         hmrOptions: {
             host: "localhost",
@@ -24,6 +25,16 @@ mix
         }
     })
     .webpackConfig({
+        module: {
+            rules: [
+                {
+                    enforce: 'pre',
+                    exclude: /node_modules/,
+                    loader: 'eslint-loader',
+                    test: /\.(js|vue)?$/
+                },
+            ]
+        },
         devServer: {
             proxy: {
                 '*': 'http://localhost:8000'

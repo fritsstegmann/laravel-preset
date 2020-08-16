@@ -1,4 +1,4 @@
-import {ReplaySubject} from "rxjs";
+import {Observable, ReplaySubject} from "rxjs";
 import UserRepository from "../repository/UserRepository";
 import {Vue} from "vue/types/vue";
 
@@ -8,7 +8,7 @@ export enum AuthEvent {
 }
 
 export default class AuthBloc {
-    private readonly _me: ReplaySubject<null>
+    private readonly _me: ReplaySubject<Record<string, unknown>>
     private _userRepo: UserRepository;
     private _bus: Vue
 
@@ -18,7 +18,7 @@ export default class AuthBloc {
         this._bus = bus
     }
 
-    get me() {
+    get me(): Observable<Record<string, unknown>> {
         return this._me.asObservable()
     }
 
@@ -31,7 +31,7 @@ export default class AuthBloc {
         })
     }
 
-    getMe() {
+    getMe(): Promise<unknown> {
         return this._userRepo.getMe().then(({data}) => {
             this._me.next(data)
         }).catch((err) => {

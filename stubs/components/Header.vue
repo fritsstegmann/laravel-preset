@@ -31,12 +31,12 @@
 </template>
 
 <script lang="ts">
-import {Component, Inject, Vue} from "vue-property-decorator";
-import AuthBloc from "../blocs/AuthBloc";
-import GravatarImg from "./GravatarImg.vue";
+import {Component, Inject, Vue} from 'vue-property-decorator';
+import AuthBloc from '../blocs/AuthBloc';
+import GravatarImg from './GravatarImg.vue';
 
 @Component({
-    components: {GravatarImg}
+    components: {GravatarImg},
 })
 export default class Header extends Vue {
     private displayDropdown?: boolean = false;
@@ -44,14 +44,13 @@ export default class Header extends Vue {
     @Inject('authBloc')
     private authBloc!: AuthBloc
 
-    private me: any = null
+    private me: Record<string, unknown> | null = null
 
-    created() {
-        this.$subscribeTo(this.authBloc.me, (me: any) => {
+    created(): void {
+        this.$subscribeTo(this.authBloc.me, (me: Record<string, unknown>) => {
             this.me = me
-        }, (err: any) => {
+        }, () => {
             this.me = null
-            console.error(err)
         })
 
         const handleEscape = (e: KeyboardEvent) => {
@@ -67,10 +66,7 @@ export default class Header extends Vue {
         });
     }
 
-    mounted() {
-    }
-
-    logout() {
+    logout(): void {
         this.authBloc.logout()
     }
 }

@@ -5,19 +5,19 @@
 </template>
 
 <script lang="ts">
-import {Component, Vue} from "vue-property-decorator";
-import VueBlocProvider from "./VueBlocProvider";
-import AuthBloc, {AuthEvent} from "./blocs/AuthBloc";
-import UserRepository from "./repository/UserRepository";
+import {Component, Vue} from 'vue-property-decorator';
+import VueBlocProvider from './VueBlocProvider';
+import AuthBloc, {AuthEvent} from './blocs/AuthBloc';
+import UserRepository from './repository/UserRepository';
 import axios from 'axios';
 
 @Component({
     components: {VueBlocProvider},
 })
 export default class App extends Vue {
-    private blocs: object = {};
+    private blocs: Record<string, unknown> = {};
 
-    created() {
+    created(): void {
         const bus = new Vue()
 
         const axiosInstance = axios.create({
@@ -25,9 +25,9 @@ export default class App extends Vue {
             headers: {
                 common: {
                     'Content-Type': 'application/json',
-                    'X-Request-With': 'XMlHttpRequest'
-                }
-            }
+                    'X-Request-With': 'XMlHttpRequest',
+                },
+            },
         })
 
         const authBloc = new AuthBloc(
@@ -44,7 +44,7 @@ export default class App extends Vue {
         })
 
         this.blocs = {
-            'authBloc': authBloc
+            'authBloc': authBloc,
         }
     }
 }

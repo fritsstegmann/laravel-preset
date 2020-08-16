@@ -105,8 +105,15 @@ class DefaultPreset extends LaravelPreset
             'ts-loader' => '^8.0.2',
             'typescript' => '^3.9.7',
             'tailwindcss' => '^1.6.2',
-            'vue-property-decorator' => '^9.0.0',
+            'laravel-mix-eslint-config' => '^0.1.7',
+            'eslint-loader' => '^4.0.2',
+            'eslint-plugin-vue' => '6.2.2',
+            'eslint' => '7.7.0',
+            '@typescript-eslint/parser' => '^3.9.0',
+            '@typescript-eslint/eslint-plugin' => '^3.9.0',
             'vue-class-component' => '^7.2.5',
+            'vue-eslint-parser' => '^7.1.0',
+            'vue-property-decorator' => '^9.0.0',
             'vue-template-compiler' => '^2.6.11',
             'vue-rx' => '^6.2.0',
             'rxjs' => '^6.6.2',
@@ -126,7 +133,7 @@ class DefaultPreset extends LaravelPreset
         File::copy(__DIR__ . '/../stubs/webpack.mix.js', base_path('webpack.mix.js'));
         File::copy(__DIR__ . '/../stubs/.eslintignore', base_path('.eslintignore'));
         File::copy(__DIR__ . '/../stubs/.editorconfig', base_path('.editorconfig'));
-        File::copy(__DIR__ . '/../stubs/.eslintrc.yml', base_path('.eslintrc.yml'));
+        File::copy(__DIR__ . '/../stubs/.eslintrc.json', base_path('.eslintrc.json'));
         File::copy(__DIR__ . '/../stubs/tailwind.config.js', base_path('tailwind.config.js'));
         File::copy(__DIR__ . '/../stubs/.php_cs.laravel.php', base_path('.php_cs.laravel.php'));
     }
