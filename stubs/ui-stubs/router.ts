@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 
 import HomePage from './pages/HomePage.vue';
 import LoginPage from './pages/LoginPage.vue';
+import AppScaffold from "./AppScaffold.vue";
 
 Vue.use(VueRouter);
 
@@ -11,8 +12,14 @@ export default new VueRouter({
     mode: "history",
     routes: [
         {
-            path: '/home',
-            component: HomePage,
+            path: '/',
+            component: AppScaffold,
+            children: [
+                {
+                    path: '/home',
+                    component: HomePage,
+                }
+            ]
         },
         {
             path: '/login',

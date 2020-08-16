@@ -7,7 +7,7 @@
 <script lang="ts">
 import {Component, Vue} from "vue-property-decorator";
 import VueBlocProvider from "./VueBlocProvider";
-import AuthBloc from "./blocs/AuthBloc";
+import AuthBloc, {AuthEvent} from "./blocs/AuthBloc";
 import UserRepository from "./repository/UserRepository";
 import axios from 'axios';
 
@@ -18,18 +18,30 @@ export default class App extends Vue {
     private blocs: object = {};
 
     created() {
+        const bus = new Vue()
+
         const axiosInstance = axios.create({
             withCredentials: true,
             headers: {
                 common: {
                     'Content-Type': 'application/json',
-                    'X-Request-With': 'XMlHtppRequest'
+                    'X-Request-With': 'XMlHttpRequest'
                 }
             }
         })
 
-        const authBloc = new AuthBloc(new UserRepository(axiosInstance))
-        authBloc.getMe()
+        const authBloc = new AuthBloc(
+            new UserRepository(axiosInstance),
+            bus,
+        )
+
+        bus.$on(AuthEvent.LOGIN, () => {
+            this.$router.replace('/home')
+        })
+
+        bus.$on(AuthEvent.LOGOUT, () => {
+            this.$router.replace('/login')
+        })
 
         this.blocs = {
             'authBloc': authBloc

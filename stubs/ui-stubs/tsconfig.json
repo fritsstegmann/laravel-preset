@@ -9,7 +9,11 @@
         "strict": true,
         "noImplicitAny": true,
         "sourceMap": true,
-        "skipLibCheck": true
+        "skipLibCheck": true,
+        "types": [
+            "vue-rx/types/index",
+            "vue/types/index"
+        ]
     },
     "include": [
         "resources/ts/**/*"

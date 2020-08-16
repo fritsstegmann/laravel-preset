@@ -19,10 +19,6 @@
                             class="fixed w-full h-full inset-0 bg-black opacity-25 cursor-default"/>
                     <div v-if="displayDropdown"
                          class="mr-2 sm:mr-0 absolute right-0 mt-12 w-48 bg-white py-2 block rounded-lg shadow-lg">
-                        <router-link to="/profile-settings"
-                                     class="block px-4 py-2 text-gray-800 hover:bg-gray-700 hover:text-white">
-                            Profile Settings
-                        </router-link>
                         <a class="block px-4 py-2 text-gray-800 hover:bg-gray-700 hover:text-white" href="#"
                            @click.prevent="logout">
                             Logout
@@ -54,6 +50,7 @@ export default class Header extends Vue {
         this.$subscribeTo(this.authBloc.me, (me: any) => {
             this.me = me
         }, (err: any) => {
+            this.me = null
             console.error(err)
         })
 

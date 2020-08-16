@@ -45,9 +45,6 @@ class DefaultPreset extends LaravelPreset
         if (!File::exists(resource_path('ts/pages'))) {
             File::makeDirectory(resource_path('ts/pages'));
         }
-        if (!File::exists(resource_path('ts/shims'))) {
-            File::makeDirectory(resource_path('ts/shims'));
-        }
         if (!File::exists(resource_path('ts/blocs'))) {
             File::makeDirectory(resource_path('ts/blocs'));
         }
@@ -135,7 +132,6 @@ class DefaultPreset extends LaravelPreset
         File::copy(__DIR__ . '/../stubs/ui-stubs/components/Header.vue', resource_path('ts/components/Header.vue'));
         File::copy(__DIR__ . '/../stubs/ui-stubs/components/GravatarImg.vue', resource_path('ts/components/GravatarImg.vue'));
         File::copy(__DIR__ . '/../stubs/ui-stubs/App.vue', resource_path('ts/App.vue'));
-        File::copy(__DIR__ . '/../stubs/ui-stubs/shims/vue-shim.d.ts', resource_path('ts/shims/vue-shim.d.ts'));
         File::copy(__DIR__ . '/../stubs/ui-stubs/VueBlocProvider.ts', resource_path('ts/VueBlocProvider.ts'));
         File::copy(__DIR__ . '/../stubs/ui-stubs/blocs/AuthBloc.ts', resource_path('ts/blocs/AuthBloc.ts'));
         File::copy(__DIR__ . '/../stubs/ui-stubs/repository/UserRepository.ts', resource_path('ts/repository/UserRepository.ts'));
@@ -148,6 +144,6 @@ class DefaultPreset extends LaravelPreset
 
     private static function installTailwindCSS()
     {
-        File::copy(__DIR__ . '/../stubs/ui-stubs/tailwind.config.js', base_path('tailwind.js'));
+        File::copy(__DIR__ . '/../stubs/ui-stubs/tailwind.config.js', base_path('tailwind.config.js'));
     }
 }
