@@ -33,7 +33,7 @@
 <script lang="ts">
 import {Component, Inject, Vue} from "vue-property-decorator";
 import AuthBloc from "../blocs/AuthBloc";
-import GravatarImg from "./GravatarImg.js";
+import GravatarImg from "./GravatarImg.vue";
 
 @Component({
     components: {GravatarImg}

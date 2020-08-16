@@ -141,8 +141,7 @@ class DefaultPreset extends LaravelPreset
         File::copy(__DIR__ . '/../stubs/components/Header.vue', resource_path('ts/components/Header.vue'));
         File::copy(__DIR__ . '/../stubs/components/GravatarImg.vue', resource_path('ts/components/GravatarImg.vue'));
         File::copy(__DIR__ . '/../stubs/App.vue', resource_path('ts/App.vue'));
-        File::copy(__DIR__ . '/../stubs/AppScafflold.vue', resource_path('ts/AppScafflold.vue'));
-        File::copy(__DIR__ . '/../stubs/shims/vue-shim.d.ts', resource_path('ts/shims/vue-shim.d.ts'));
+        File::copy(__DIR__ . '/../stubs/AppScaffold.vue', resource_path('ts/AppScaffold.vue'));
         File::copy(__DIR__ . '/../stubs/VueBlocProvider.ts', resource_path('ts/VueBlocProvider.ts'));
         File::copy(__DIR__ . '/../stubs/blocs/AuthBloc.ts', resource_path('ts/blocs/AuthBloc.ts'));
         File::copy(

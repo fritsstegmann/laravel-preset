@@ -2,7 +2,7 @@ import Vue from 'vue';
 
 import VueRx from 'vue-rx';
 import router from './router';
-import App from './App.js';
+import App from './App.vue';
 
 Vue.use(VueRx);
 
