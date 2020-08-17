@@ -1,0 +1,38 @@
+{
+    "compilerOptions": {
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "esModuleInterop": true,
+        "module": "ES6",
+        "moduleResolution": "node",
+        "target": "es2018",
+        "strict": true,
+        "importHelpers": true,
+        "noImplicitAny": true,
+        "allowSyntheticDefaultImports": true,
+        "sourceMap": false,
+        "skipLibCheck": true,
+        "types": [
+            "vue-rx",
+            "vue",
+            "jest"
+        ],
+        "baseUrl": ".",
+        "paths": {
+            "@app/*": [
+                "resources/ts/src/*"
+            ]
+        }
+    },
+    "include": [
+        "resources/ts/src/**/*.ts",
+        "resources/ts/src/**/*.tsx",
+        "resources/ts/src/**/*.vue",
+        "resources/ts/tests/**/*.ts",
+        "resources/ts/tests/**/*.tsx"
+    ],
+    "exclude": [
+        "node_modules",
+        "vendor"
+    ]
+}

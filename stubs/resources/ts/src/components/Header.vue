@@ -12,7 +12,7 @@
                     <button @click="displayDropdown = !displayDropdown"
                             class="mr-2 sm:mr-0 relative z-10 block focus:shadow-outline focus:outline-none outline-none h-10 w-10 rounded-full shadow-inner overflow-hidden border-2">
                         <GravatarImg
-                            :email="me.email"
+                                :email="me.email"
                         />
                     </button>
                     <button @click="displayDropdown = false" v-if="displayDropdown"
