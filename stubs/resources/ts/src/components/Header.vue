@@ -45,7 +45,7 @@ export default class Header extends Vue {
     @Inject('authBloc')
     private authBloc!: AuthBloc
 
-    private me!: User | null
+    private me: User | null = null
 
     created(): void {
         this.$subscribeTo(this.authBloc.me, (me: User) => {

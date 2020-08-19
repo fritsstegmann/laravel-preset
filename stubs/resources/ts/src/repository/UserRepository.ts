@@ -8,14 +8,11 @@ export default class UserRepository {
         this.axios = axios;
     }
 
-    async login(username: string, password: string): Promise<User> {
+    async login(username: string, password: string): Promise<void> {
         await this.axios.get('/sanctum/csrf-cookie')
         await this.axios.post('/login', {
             email: username,
             password: password,
-        })
-        return this.axios.get('/api/user').then(({data}) => {
-            return User.fromMap(data)
         })
     }
 

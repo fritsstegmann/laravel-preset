@@ -24,9 +24,8 @@ export default class AuthBloc {
     }
 
     login(user: string, password: string): Promise<void> {
-        return this._userRepo.login(user, password).then((data: User) => {
-            this._bus.$emit(AuthEvent.LOGIN, data)
-            this._me.next(data)
+        return this._userRepo.login(user, password).then(() => {
+            this._bus.$emit(AuthEvent.LOGIN)
         }).catch((err) => {
             this._me.error(err)
         })
