@@ -34,6 +34,7 @@
 import {Component, Inject, Vue} from 'vue-property-decorator';
 import AuthBloc from '../blocs/AuthBloc';
 import GravatarImg from './GravatarImg.vue';
+import User from '@app/models/User';
 
 @Component({
     components: {GravatarImg},
@@ -44,10 +45,10 @@ export default class Header extends Vue {
     @Inject('authBloc')
     private authBloc!: AuthBloc
 
-    private me: Record<string, unknown> | null = null
+    private me!: User | null
 
     created(): void {
-        this.$subscribeTo(this.authBloc.me, (me: Record<string, unknown>) => {
+        this.$subscribeTo(this.authBloc.me, (me: User) => {
             this.me = me
         }, () => {
             this.me = null

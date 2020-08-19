@@ -56,9 +56,7 @@ class DefaultPreset extends LaravelPreset
             ],
             Arr::except(
                 $dontDiscover
-                [
-                    'barryvdh/laravel-ide-helper'
-                ]
+                ['barryvdh/laravel-ide-helper']
             )
         );
 
@@ -119,6 +117,12 @@ class DefaultPreset extends LaravelPreset
         }
         if (!File::exists(resource_path('ts/tests'))) {
             File::makeDirectory(resource_path('ts/tests'));
+        }
+        if (!File::exists(resource_path('ts/tests/unit'))) {
+            File::makeDirectory(resource_path('ts/tests/unit'));
+        }
+        if (!File::exists(resource_path('ts/tests/unit/components'))) {
+            File::makeDirectory(resource_path('ts/tests/unit/components'));
         }
     }
 
@@ -274,6 +278,9 @@ class DefaultPreset extends LaravelPreset
         File::copy(__DIR__ . '/../stubs/resources/scss/app.scss', resource_path('scss/app.scss'));
 
         // test files
-        File::copy(__DIR__ . '/../stubs/resources/ts/tests/Header.spec.ts', resource_path('ts/tests/Header.spec.ts'));
+        File::copy(
+            __DIR__ . '/../stubs/resources/ts/tests/unit/components/Header.spec.ts',
+            resource_path('ts/tests/unit/components/Header.spec.ts')
+        );
     }
 }
