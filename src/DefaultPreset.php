@@ -50,12 +50,9 @@ class DefaultPreset extends LaravelPreset
         );
 
         $dontDiscover = $composer['extra']['laravel']['dont-discover'];
-        $dontDiscover = array_merge(
-            [
-                "barryvdh/laravel-ide-helper",
-            ],
-            Arr::except(
-                $dontDiscover
+        $dontDiscover = array_unique(
+            array_merge(
+                $dontDiscover,
                 ['barryvdh/laravel-ide-helper']
             )
         );

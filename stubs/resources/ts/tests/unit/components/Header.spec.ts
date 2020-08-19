@@ -23,13 +23,14 @@ describe('HelloWorld.vue', () => {
     it('render successfully', (done) => {
         const data = {
             data: {
-                queueSize: 2,
-                workerPoolSize: 4,
+                email: 'example@test.com',
+                name: 'John Doe',
             },
         }
 
         mockAxios.get.mockImplementation((): Promise<any> => new Promise<any>((resolve => resolve(data))))
         authBloc.getMe()
+
         const wrapper = shallowMount(Header, {
             localVue,
             provide: {
