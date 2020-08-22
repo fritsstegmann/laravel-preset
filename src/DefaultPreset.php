@@ -18,6 +18,7 @@ class DefaultPreset extends LaravelPreset
         self::updateResourceFiles();
         self::addJestToPackageJsonFile();
         self::updatePHP();
+        self::updateCypress();
     }
 
     private static function installPHPPackages()
@@ -38,10 +39,12 @@ class DefaultPreset extends LaravelPreset
                 "squizlabs/php_codesniffer" => "^3.0",
                 "phpmd/phpmd" => "@stable",
                 "barryvdh/laravel-ide-helper" => "^2.8",
+                'laracasts/cypress' => '^1.1'
             ],
             Arr::except(
                 $requireDevList,
                 [
+                    'laracasts/cypress',
                     'squizlabs/php_codesniffer',
                     'phpmd/phpmd',
                     "barryvdh/laravel-ide-helper",
@@ -190,6 +193,7 @@ class DefaultPreset extends LaravelPreset
     private static function newPackages()
     {
         return [
+            'cypress' => '^5.0.0',
             '@types/jest' => '^26.0.10',
             '@types/md5' => '^2.2.0',
             'tailwind-mix' => '^1.0.4',
@@ -221,63 +225,98 @@ class DefaultPreset extends LaravelPreset
         ];
     }
 
+    private static function updateCypress()
+    {
+        $files = [
+            'fixtures/example.json',
+            'integration/login.spec.js',
+            'plugins/index.js',
+            'plugins/swap-env.js',
+            'support/assertions.js',
+            'support/commands.js',
+            'support/index.js',
+            'support/laravel-commands.js'
+        ];
+
+        foreach ($files as $file) {
+            self::copyFile($file, __DIR__ . '/../stubs/cypress/', 'tests/Cypress/');
+        }
+    }
+
     private static function updatePHP()
     {
         File::copy(__DIR__ . '/../stubs/php/AppServiceProvider.php', base_path('app/Providers/AppServiceProvider.php'));
         File::copy(__DIR__ . '/../stubs/php/config/ide-helper.php', base_path('config/ide-helper.php'));
         File::copy(__DIR__ . '/../stubs/php/config/sanctum.php', base_path('config/sanctum.php'));
+
+        File::copy(__DIR__ . '/../stubs/php/routes/api.php', base_path('routes/api.php'));
+        File::copy(__DIR__ . '/../stubs/php/routes/web.php', base_path('routes/web.php'));
+
+        File::copy(__DIR__ . '/../stubs/php/Http/Kernel.php', base_path('app/Http/Kernel.php'));
+    }
+
+    private static function copyFile(
+        $file,
+        $src,
+        $dest
+    ) {
+        $destFilePath = $dest . str_replace('.stub', '', $file);
+        $destFolder = dirname($destFilePath);
+
+        if (!File::exists(base_path($destFolder))) {
+            File::makeDirectory(base_path($destFolder), 0755, true);
+        }
+        File::copy($src . $file, base_path($dest . str_replace('.stub', '', $file)));
     }
 
     private static function updateBaseFiles()
     {
-        File::copy(__DIR__ . '/../stubs/base/.gitignore.stub', base_path('.gitignore'));
-        File::copy(__DIR__ . '/../stubs/base/webpack.mix.js', base_path('webpack.mix.js'));
-        File::copy(__DIR__ . '/../stubs/base/.eslintignore', base_path('.eslintignore'));
-        File::copy(__DIR__ . '/../stubs/base/.editorconfig', base_path('.editorconfig'));
-        File::copy(__DIR__ . '/../stubs/base/.eslintrc.json', base_path('.eslintrc.json'));
-        File::copy(__DIR__ . '/../stubs/base/tailwind.config.js', base_path('tailwind.config.js'));
-        File::copy(__DIR__ . '/../stubs/base/.php_cs.laravel.php', base_path('.php_cs.laravel.php'));
-        File::copy(__DIR__ . '/../stubs/base/tsconfig.json', base_path('tsconfig.json'));
+        $files = [
+            '.gitignore.stub',
+            'webpack.mix.js',
+            '.eslintignore',
+            '.eslintrc.json',
+            '.editorconfig',
+            'tailwind.config.js',
+            'tsconfig.json',
+            '.env.cypress',
+            'cypress.json',
+        ];
+
+        foreach ($files as $file) {
+            self::copyFile($file, __DIR__ . '/../stubs/base/', '');
+        }
     }
 
     private static function updateResourceFiles()
     {
-        // src files
-        File::copy(__DIR__ . '/../stubs/resources/ts/src/app.ts', resource_path('ts/src/app.ts'));
-        File::copy(__DIR__ . '/../stubs/resources/ts/src/router.ts', resource_path('ts/src/router.ts'));
-        File::copy(
-            __DIR__ . '/../stubs/resources/ts/src/pages/HomePage.vue',
-            resource_path('ts/src/pages/HomePage.vue')
-        );
-        File::copy(
-            __DIR__ . '/../stubs/resources/ts/src/pages/LoginPage.vue',
-            resource_path('ts/src/pages/LoginPage.vue')
-        );
-        File::copy(
-            __DIR__ . '/../stubs/resources/ts/src/components/Header.vue',
-            resource_path('ts/src/components/Header.vue')
-        );
-        File::copy(
-            __DIR__ . '/../stubs/resources/ts/src/components/GravatarImg.vue',
-            resource_path('ts/src/components/GravatarImg.vue')
-        );
-        File::copy(__DIR__ . '/../stubs/resources/ts/src/App.vue', resource_path('ts/src/App.vue'));
-        File::copy(__DIR__ . '/../stubs/resources/ts/src/AppScaffold.vue', resource_path('ts/src/AppScaffold.vue'));
-        File::copy(
-            __DIR__ . '/../stubs/resources/ts/src/VueBlocProvider.ts',
-            resource_path('ts/src/VueBlocProvider.ts')
-        );
-        File::copy(__DIR__ . '/../stubs/resources/ts/src/blocs/AuthBloc.ts', resource_path('ts/src/blocs/AuthBloc.ts'));
-        File::copy(
-            __DIR__ . '/../stubs/resources/ts/src/repository/UserRepository.ts',
-            resource_path('ts/src/repository/UserRepository.ts')
-        );
-        File::copy(__DIR__ . '/../stubs/resources/scss/app.scss', resource_path('scss/app.scss'));
+        $files = [
+            // ts
+            'ts/src/app.ts',
+            'ts/src/router.ts',
 
-        // test files
-        File::copy(
-            __DIR__ . '/../stubs/resources/ts/tests/unit/components/Header.spec.ts',
-            resource_path('ts/tests/unit/components/Header.spec.ts')
-        );
+            'ts/src/models/User.ts',
+            'ts/src/blocs/AuthBloc.ts',
+            'ts/src/repository/UserRepository.ts',
+            'ts/src/VueBlocProvider.ts',
+
+            'ts/src/App.vue',
+            'ts/src/AppScaffold.vue',
+
+            'ts/src/pages/HomePage.vue',
+            'ts/src/pages/LoginPage.vue',
+
+            'ts/src/components/Header.vue',
+            'ts/src/components/GravatarImg.vue',
+
+            // tests
+            'ts/tests/unit/components/Header.spec.ts',
+            // scss
+            'scss/app.scss',
+        ];
+
+        foreach ($files as $file) {
+            self::copyFile($file, __DIR__ . '/../stubs/resources/', 'resources/');
+        }
     }
 }

@@ -8,9 +8,9 @@ export default class UserRepository {
         this.axios = axios;
     }
 
-    async login(username: string, password: string): Promise<void> {
+    async login(username: string, password: string): Promise<AxiosResponse> {
         await this.axios.get('/sanctum/csrf-cookie')
-        await this.axios.post('/login', {
+        return await this.axios.post('/login', {
             email: username,
             password: password,
         })

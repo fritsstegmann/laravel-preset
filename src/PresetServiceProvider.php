@@ -23,7 +23,7 @@ class PresetServiceProvider extends ServiceProvider
     public function boot()
     {
         if (class_exists('Laravel\Ui\UiCommand')) {
-            \Laravel\Ui\UiCommand::macro('vuets', function ($command) {
+            \Laravel\Ui\UiCommand::macro('storna', function ($command) {
                 DefaultPreset::install();
             });
         }
