@@ -15,7 +15,10 @@ const path = require('path')
 mix
     .ts('resources/ts/src/app.ts', 'public/js')
     .sass('resources/scss/app.scss', 'public/css')
-    .tailwind('./tailwind.config.js')
+    .options({
+        processCssUrls: false,
+        postCss: [ tailwindcss('./tailwind.config.js') ],
+    })
     .extract([
         'vue',
         'vue-rx',
