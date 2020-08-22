@@ -1,9 +1,6 @@
 const mix = require('laravel-mix')
 const path = require('path')
 
-require('tailwind-mix')
-require('laravel-mix-eslint-config')
-
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -19,6 +16,13 @@ mix
     .ts('resources/ts/src/app.ts', 'public/js')
     .sass('resources/scss/app.scss', 'public/css')
     .tailwind('./tailwind.config.js')
+    .extract([
+        'vue',
+        'vue-rx',
+        'rxjs',
+        'axios',
+        'vue-router',
+    ], 'public/js/vendor.js')
     .disableSuccessNotifications()
     .options({
         hmrOptions: {

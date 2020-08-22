@@ -292,6 +292,9 @@ class DefaultPreset extends LaravelPreset
     private static function updateResourceFiles()
     {
         $files = [
+            // blade
+            'views/layouts/app.blade.php',
+
             // ts
             'ts/src/app.ts',
             'ts/src/router.ts',
