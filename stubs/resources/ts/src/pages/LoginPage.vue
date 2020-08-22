@@ -8,10 +8,13 @@
                             <label for="email" class="text-gray-700">Email</label>
 
                             <div class="mt-2">
-                                <input v-model="username" id="email" type="email"
+                                <input @blur="validateEmail" v-model="username" id="email" type="email"
                                        class="py-2 px-4 w-full sm:w-64 min-w-full outline-none focus:shadow-outline rounded border-gray-500 bg-gray-100"
                                        name="email" value="" required autocomplete="email"
                                        placeholder="my email address" autofocus>
+                                <div v-if="validationEmailString" class="text-sm text-red-600 mt-2">
+                                    {{ validationEmailString }}
+                                </div>
                             </div>
                         </div>
 
@@ -26,7 +29,7 @@
                         </div>
 
                         <div class="mt-8">
-                            <button type="submit"
+                            <button type="submit" id="log-in-button"
                                     class="py-2 px-4 w-full shadow outline-none focus:shadow-outline active:bg-gray-800 active:shadow-none hover:bg-gray-700 outline-none hover:shadow-lg rounded bg-gray-800 text-gray-200">
                                 Login
                             </button>
@@ -46,8 +49,8 @@
                 </div>
                 <div class="mt-0 sm:mt-2 text-sm text-center w-full text-gray-700">
                     Don't have account, <a
-                    class="font-medium text-gray-900 focus:shadow-outline outline-none hover:underline"
-                    href="/register">Register</a> here
+                        class="font-medium text-gray-900 focus:shadow-outline outline-none hover:underline"
+                        href="/register">Register</a> here
                 </div>
             </div>
         </div>
@@ -63,8 +66,18 @@ export default class LoginPage extends Vue {
     private username = ''
     private password = ''
 
+    private validationEmailString = ''
+
     @Inject('authBloc')
     private authBloc!: AuthBloc
+
+    private validateEmail() {
+        if (this.username.indexOf('@') === -1) {
+            this.validationEmailString = 'The email must be a valid email address'
+        } else {
+            this.validationEmailString = ''
+        }
+    }
 
     public login(): void {
         this.authBloc.login(this.username, this.password)

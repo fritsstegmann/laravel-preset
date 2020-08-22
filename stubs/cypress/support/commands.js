@@ -10,7 +10,25 @@
 //
 //
 // -- This is a parent command --
-// Cypress.Commands.add("login", (email, password) => { ... })
+Cypress.Commands.add('login', (email, password) => {
+        cy.visit('/login')
+
+        cy
+            .get('#email')
+            .focus()
+            .type(email)
+            .blur()
+
+        cy
+            .get('#password')
+            .focus()
+            .type(password)
+            .blur()
+
+        cy.get('#log-in-button').click()
+        cy.contains('Dashboard')
+    },
+)
 //
 //
 // -- This is a child command --

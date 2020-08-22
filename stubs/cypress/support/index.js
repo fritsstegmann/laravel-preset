@@ -13,9 +13,11 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
-import './commands'
 import './laravel-commands';
 import './assertions';
+
+// beware of overriding laracasts/cypress commands
+import './commands'
 
 before(() => {
     cy.task('activateCypressEnvFile', {}, {log: false});
