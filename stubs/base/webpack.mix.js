@@ -1,5 +1,6 @@
 const mix = require('laravel-mix')
 const path = require('path')
+const tailwind = require('tailwindcss')
 
 /*
  |--------------------------------------------------------------------------
@@ -17,7 +18,7 @@ mix
     .sass('resources/scss/app.scss', 'public/css')
     .options({
         processCssUrls: false,
-        postCss: [ tailwindcss('./tailwind.config.js') ],
+        postCss: [ tailwind('./tailwind.config.js') ],
     })
     .extract([
         'vue',
