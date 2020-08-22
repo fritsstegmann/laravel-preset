@@ -19,6 +19,7 @@ class DefaultPreset extends LaravelPreset
         self::addJestToPackageJsonFile();
         self::updatePHP();
         self::updateCypress();
+        self::updateStorage();
     }
 
     private static function installPHPPackages()
@@ -286,6 +287,17 @@ class DefaultPreset extends LaravelPreset
 
         foreach ($files as $file) {
             self::copyFile($file, __DIR__ . '/../stubs/base/', '');
+        }
+    }
+
+    private static function updateStorage()
+    {
+        $files = [
+            'Cypress/.gitignore.stub'
+        ];
+
+        foreach ($files as $file) {
+            self::copyFile($file, __DIR__ . '/../stubs/storage/', 'storage/');
         }
     }
 

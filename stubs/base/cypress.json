@@ -5,6 +5,6 @@
     "integrationFolder": "tests/Cypress/integration",
     "pluginsFile": "tests/Cypress/plugins/index.js",
     "supportFile": "tests/Cypress/support/index.js",
-    "screenshotsFolder": "tests/Cypress/screenshots",
-    "videosFolder": "tests/Cypress/videos"
+    "screenshotsFolder": "storage/Cypress/screenshots",
+    "videosFolder": "storage/Cypress/videos"
 }
