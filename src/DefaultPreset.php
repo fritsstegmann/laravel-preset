@@ -199,6 +199,7 @@ class DefaultPreset extends LaravelPreset
             'tailwind-mix' => '^1.0.4',
             'vue' => '^2.6.11',
             'ts-loader' => '^8.0.2',
+            'cypress-intellij-reporter' => '0.0.4',
             '@vue/cli-plugin-unit-jest' => '^4.5.3',
             'typescript' => '^3.9.7',
             'tailwindcss' => '^1.6.2',
