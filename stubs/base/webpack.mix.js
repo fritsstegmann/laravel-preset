@@ -14,8 +14,7 @@ const tailwind = require('tailwindcss')
  */
 
 mix
-    .ts('resources/ts/src/app.ts', 'public/js')
-    .sass('resources/scss/app.scss', 'public/css')
+    .ts('resources/ts/app.ts', 'public/js')
     .options({
         processCssUrls: false,
         postCss: [ tailwind('./tailwind.config.js') ],
@@ -37,7 +36,7 @@ mix
     .webpackConfig({
         resolve: {
             alias: {
-                '@app': path.resolve(__dirname, 'resources/ts/src/'),
+                '@app': path.resolve(__dirname, 'resources/ts/'),
             },
         },
         module: {

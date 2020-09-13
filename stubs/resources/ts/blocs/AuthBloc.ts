@@ -1,4 +1,4 @@
-import {Observable, ReplaySubject} from 'rxjs';
+import {Observable, ReplaySubject, Subject} from 'rxjs';
 import UserRepository from '@app/repository/UserRepository';
 import {Vue} from 'vue/types/vue';
 import User from '@app/models/User'
@@ -9,14 +9,19 @@ export enum AuthEvent {
 }
 
 export default class AuthBloc {
-    private readonly _me: ReplaySubject<User>
-    private _userRepo: UserRepository;
-    private _bus: Vue
+    private readonly _me: Subject<User>
+    private readonly _event: Subject<AuthEvent>
 
-    constructor(userRepo: UserRepository, bus: Vue) {
+    private _userRepo: UserRepository;
+
+    constructor(userRepo: UserRepository) {
         this._userRepo = userRepo;
         this._me = new ReplaySubject(1)
-        this._bus = bus
+        this._event = new ReplaySubject(1)
+    }
+
+    get event(): Observable<AuthEvent> {
+        return this._event.asObservable()
     }
 
     get me(): Observable<User> {
@@ -25,7 +30,7 @@ export default class AuthBloc {
 
     login(user: string, password: string): Promise<void> {
         return this._userRepo.login(user, password).then(() => {
-            this._bus.$emit(AuthEvent.LOGIN)
+            this._event.next(AuthEvent.LOGIN)
         }).catch((err) => {
             this._me.error(err)
         })
@@ -35,13 +40,13 @@ export default class AuthBloc {
         return this._userRepo.getMe().then((user) => {
             this._me.next(user)
         }).catch((err) => {
-            this._bus.$emit(AuthEvent.LOGOUT)
+            this._event.next(AuthEvent.LOGOUT)
             this._me.error(err)
         })
     }
 
     async logout(): Promise<void> {
         await this._userRepo.logout()
-        this._bus.$emit(AuthEvent.LOGOUT)
+        this._event.next(AuthEvent.LOGOUT)
     }
 }

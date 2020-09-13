@@ -20,16 +20,14 @@
         "baseUrl": ".",
         "paths": {
             "@app/*": [
-                "resources/ts/src/*"
+                "resources/ts/*"
             ]
         }
     },
     "include": [
-        "resources/ts/src/**/*.ts",
-        "resources/ts/src/**/*.tsx",
-        "resources/ts/src/**/*.vue",
-        "resources/ts/tests/**/*.ts",
-        "resources/ts/tests/**/*.tsx"
+        "resources/ts/**/*.ts",
+        "resources/ts/**/*.tsx",
+        "resources/ts/**/*.vue"
     ],
     "exclude": [
         "node_modules",

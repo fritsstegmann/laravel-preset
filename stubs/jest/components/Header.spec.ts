@@ -4,7 +4,6 @@ import Header from '@app/components/Header.vue'
 import VueRx from 'vue-rx'
 import axios from 'axios'
 import UserRepository from '@app/repository/UserRepository'
-import Vue from 'vue'
 
 jest.mock('axios')
 const mockAxios = axios as jest.Mocked<typeof axios>
@@ -13,7 +12,7 @@ const localVue = createLocalVue()
 localVue.use(VueRx)
 
 const userRepo = new UserRepository(mockAxios)
-const authBloc = new AuthBloc(userRepo, new Vue())
+const authBloc = new AuthBloc(userRepo)
 
 describe('HelloWorld.vue', () => {
     afterEach(() => {

@@ -1,11 +1,8 @@
 /// <reference types="cypress" />
 describe('Login', () => {
-    before(() => {
-        cy.refreshDatabase().seed()
-        cy.create('App\\User', {
-            name: 'John Doe',
-            email: 'test@example.com',
-        })
+
+    beforeEach(() => {
+        cy.clearCookies()
     })
 
     // happy path

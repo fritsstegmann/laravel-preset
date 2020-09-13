@@ -20,6 +20,7 @@ class DefaultPreset extends LaravelPreset
         self::updatePHP();
         self::updateCypress();
         self::updateStorage();
+        self::updateJest();
     }
 
     private static function installPHPPackages()
@@ -101,30 +102,6 @@ class DefaultPreset extends LaravelPreset
         if (!File::exists(resource_path('ts'))) {
             File::makeDirectory(resource_path('ts'));
         }
-        if (!File::exists(resource_path('ts/src'))) {
-            File::makeDirectory(resource_path('ts/src'));
-        }
-        if (!File::exists(resource_path('ts/src/pages'))) {
-            File::makeDirectory(resource_path('ts/src/pages'));
-        }
-        if (!File::exists(resource_path('ts/src/blocs'))) {
-            File::makeDirectory(resource_path('ts/src/blocs'));
-        }
-        if (!File::exists(resource_path('ts/src/components'))) {
-            File::makeDirectory(resource_path('ts/src/components'));
-        }
-        if (!File::exists(resource_path('ts/src/repository'))) {
-            File::makeDirectory(resource_path('ts/src/repository'));
-        }
-        if (!File::exists(resource_path('ts/tests'))) {
-            File::makeDirectory(resource_path('ts/tests'));
-        }
-        if (!File::exists(resource_path('ts/tests/unit'))) {
-            File::makeDirectory(resource_path('ts/tests/unit'));
-        }
-        if (!File::exists(resource_path('ts/tests/unit/components'))) {
-            File::makeDirectory(resource_path('ts/tests/unit/components'));
-        }
     }
 
     protected static function updatePackageArray($packages)
@@ -147,13 +124,10 @@ class DefaultPreset extends LaravelPreset
     {
         $jestConfig = [
             "moduleNameMapper" => [
-                "^@app/(.*)$" => "<rootDir>/resources/ts/src/$1",
+                "^@app/(.*)$" => "<rootDir>/resources/ts/$1",
             ],
             "modulePaths" => [
                 "<rootDir>"
-            ],
-            "roots" => [
-                "<rootDir>/resources/ts"
             ],
             "moduleFileExtensions" => [
                 "ts",
@@ -162,7 +136,7 @@ class DefaultPreset extends LaravelPreset
                 "json",
                 "vue"
             ],
-            "testMatch" => ["<rootDir>/resources/ts/tests/**/*.spec.ts"],
+            "testMatch" => ["<rootDir>/tests/Jest/**/*.spec.ts"],
             "transform" => [
                 "^.+\\.ts$" => "ts-jest",
                 "^.+\\.vue$" => "vue-jest",
@@ -225,6 +199,17 @@ class DefaultPreset extends LaravelPreset
             "vue-jest" => "^3.0.6",
             "md5" => "2.3.0",
         ];
+    }
+
+    private static function updateJest()
+    {
+        $files = [
+            'components/Header.spec.ts',
+        ];
+
+        foreach ($files as $file) {
+            self::copyFile($file, __DIR__ . '/../stubs/jest/', 'tests/Jest/');
+        }
     }
 
     private static function updateCypress()
@@ -308,25 +293,22 @@ class DefaultPreset extends LaravelPreset
             'views/layouts/app.blade.php',
 
             // ts
-            'ts/src/app.ts',
-            'ts/src/router.ts',
+            'ts/app.ts',
+            'ts/router.ts',
 
-            'ts/src/models/User.ts',
-            'ts/src/blocs/AuthBloc.ts',
-            'ts/src/repository/UserRepository.ts',
-            'ts/src/VueBlocProvider.ts',
+            'ts/models/User.ts',
+            'ts/blocs/AuthBloc.ts',
+            'ts/repository/UserRepository.ts',
 
-            'ts/src/App.vue',
-            'ts/src/AppScaffold.vue',
+            'ts/App.vue',
+            'ts/AppScaffold.vue',
 
-            'ts/src/pages/HomePage.vue',
-            'ts/src/pages/LoginPage.vue',
+            'ts/pages/HomePage.vue',
+            'ts/pages/LoginPage.vue',
 
-            'ts/src/components/Header.vue',
-            'ts/src/components/GravatarImg.vue',
+            'ts//components/Header.vue',
+            'ts/components/GravatarImg.vue',
 
-            // tests
-            'ts/tests/unit/components/Header.spec.ts',
             // scss
             'scss/app.scss',
         ];
