@@ -21,6 +21,9 @@ class DefaultPreset extends LaravelPreset
         self::updateCypress();
         self::updateStorage();
         self::updateJest();
+
+        exec('composer update');
+        exec('npm install');
     }
 
     private static function installPHPPackages()
@@ -31,7 +34,7 @@ class DefaultPreset extends LaravelPreset
 
         $requireList = array_merge(
             [
-                "laravel/sanctum" => '^2.4'
+                "laravel/sanctum" => '^2.6'
             ],
             $requireList
         );
@@ -41,7 +44,8 @@ class DefaultPreset extends LaravelPreset
                 "squizlabs/php_codesniffer" => "^3.0",
                 "phpmd/phpmd" => "@stable",
                 "barryvdh/laravel-ide-helper" => "^2.8",
-                'laracasts/cypress' => '^1.1'
+                'laracasts/cypress' => '^1.1',
+                'brainmaestro/composer-git-hooks' => '^2.8',
             ],
             Arr::except(
                 $requireDevList,
@@ -54,6 +58,20 @@ class DefaultPreset extends LaravelPreset
             )
         );
 
+        $extra = $composer['extra'];
+        $extra['hooks'] = [
+            'pre-commit' => [
+                "echo committing as $(git config user.email)",
+                'composer run-script phpcs',
+            ],
+            'commit-msg' => "grep -q \'[A-Z]+-[0-9]+.*\' $1",
+            'post-merge' => [
+                'composer install',
+            ],
+        ];
+
+        $composer['extra'] = $extra;
+
         $dontDiscover = $composer['extra']['laravel']['dont-discover'];
         $dontDiscover = array_unique(
             array_merge(
@@ -63,15 +81,26 @@ class DefaultPreset extends LaravelPreset
         );
 
         $scripts = array_merge(
-            ['phpcs' => 'composer dump-autoload && phpcs --standard=PSR1 ./app && phpcs --standard=PSR12 ./app && phpmd ./app text phpmd.xml && phpunit -c ./phpunit.xml && php artisan migrate:refresh --seed --force'],
+            $composer['scripts'],
             [
+                'cghooks' => 'vendor/bin/cghooks',
+                'phpcs' => [
+                    'phpcbf --standard=PSR12 ./app || return 0',
+                    'phpcs --standard=PSR1 ./app',
+                    'phpcs --standard=PSR12 ./app',
+                    'phpmd ./app text phpmd.xml',
+                    'phpunit -c ./phpunit.xml',
+                ],
                 'post-update-cmd' => [
                     "Illuminate\\Foundation\\ComposerScripts::postUpdate",
-                    "@php artisan ide-helper:generate",
-                    "@php artisan ide-helper:meta"
+                    'cghooks update',
                 ],
-            ],
-            $composer['scripts']
+                'post-install-cmd' => [
+                    "@php artisan ide-helper:generate",
+                    "@php artisan ide-helper:meta",
+                    'cghooks add --ignore-lock'
+                ],
+            ]
         );
 
         $composer['extra']['laravel']['dont-discover'] = $dontDiscover;
@@ -195,7 +224,7 @@ class DefaultPreset extends LaravelPreset
             'reflect-metadata' => '^0.1.13',
             "@vue/test-utils" => "^1.0.3",
             "jest" => "^26.4.0",
-            "ts-jest" => "^27.2.0",
+            "ts-jest" => "^26.2.0",
             "vue-jest" => "^3.0.6",
             "md5" => "2.3.0",
         ];
@@ -233,13 +262,9 @@ class DefaultPreset extends LaravelPreset
     private static function updatePHP()
     {
         File::copy(__DIR__ . '/../stubs/php/AppServiceProvider.php', base_path('app/Providers/AppServiceProvider.php'));
+
         File::copy(__DIR__ . '/../stubs/php/config/ide-helper.php', base_path('config/ide-helper.php'));
         File::copy(__DIR__ . '/../stubs/php/config/sanctum.php', base_path('config/sanctum.php'));
-
-        File::copy(__DIR__ . '/../stubs/php/routes/api.php', base_path('routes/api.php'));
-        File::copy(__DIR__ . '/../stubs/php/routes/web.php', base_path('routes/web.php'));
-
-        File::copy(__DIR__ . '/../stubs/php/Http/Kernel.php', base_path('app/Http/Kernel.php'));
     }
 
     private static function copyFile(
@@ -268,6 +293,7 @@ class DefaultPreset extends LaravelPreset
             'tsconfig.json',
             '.env.cypress',
             'cypress.json',
+            'phpmd.xml',
         ];
 
         foreach ($files as $file) {
