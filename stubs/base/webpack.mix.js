@@ -17,7 +17,7 @@ mix
     .ts('resources/ts/app.ts', 'public/js')
     .options({
         processCssUrls: false,
-        postCss: [ tailwind('./tailwind.config.js') ],
+        postCss: [tailwind('./tailwind.config.js')],
     })
     .extract([
         'vue',
@@ -41,6 +41,20 @@ mix
         },
         module: {
             rules: [
+                {
+                    test: /\.(css|scss)$/,
+                    use: [
+                        {
+                            loader: 'sass-loader',
+                            options: {
+                                implementation: require('sass'),
+                                sassOptions: {
+                                    fiber: require('fibers'),
+                                },
+                            },
+                        },
+                    ]
+                },
                 {
                     enforce: 'pre',
                     exclude: /node_modules/,

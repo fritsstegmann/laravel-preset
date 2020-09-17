@@ -12,7 +12,6 @@ class DefaultPreset extends LaravelPreset
     {
         self::installPHPPackages();
         self::cleanDirectory();
-        self::createDirectories();
         self::updatePackages();
         self::updateBaseFiles();
         self::updateResourceFiles();
@@ -22,8 +21,7 @@ class DefaultPreset extends LaravelPreset
         self::updateStorage();
         self::updateJest();
 
-        exec('composer update');
-        exec('npm install');
+        system('echo "run \'composer update && npm install\'"');
     }
 
     private static function installPHPPackages()
@@ -62,9 +60,12 @@ class DefaultPreset extends LaravelPreset
         $extra['hooks'] = [
             'pre-commit' => [
                 "echo committing as $(git config user.email)",
-                'composer run-script phpcs',
+                'cd $(git rev-parse --show-toplevel)',
+                'vendor/bin/phpcs --standard=PSR1 ./app',
+                'vendor/bin/phpcs --standard=PSR12 ./app',
+                'vendor/bin/phpmd ./app text phpmd.xml',
+                'vendor/bin/phpunit -c ./phpunit.xml',
             ],
-            'commit-msg' => "grep -q \'[A-Z]+-[0-9]+.*\' $1",
             'post-merge' => [
                 'composer install',
             ],
@@ -85,7 +86,6 @@ class DefaultPreset extends LaravelPreset
             [
                 'cghooks' => 'vendor/bin/cghooks',
                 'phpcs' => [
-                    'phpcbf --standard=PSR12 ./app || return 0',
                     'phpcs --standard=PSR1 ./app',
                     'phpcs --standard=PSR12 ./app',
                     'phpmd ./app text phpmd.xml',
@@ -122,17 +122,6 @@ class DefaultPreset extends LaravelPreset
         File::deleteDirectory(resource_path('js'));
     }
 
-    private static function createDirectories()
-    {
-        if (!File::exists(resource_path('scss'))) {
-            File::makeDirectory(resource_path('scss'));
-        }
-
-        if (!File::exists(resource_path('ts'))) {
-            File::makeDirectory(resource_path('ts'));
-        }
-    }
-
     protected static function updatePackageArray($packages)
     {
         return array_merge(
@@ -162,6 +151,7 @@ class DefaultPreset extends LaravelPreset
                 "ts",
                 "tsx",
                 "js",
+                "jsx",
                 "json",
                 "vue"
             ],
@@ -171,11 +161,9 @@ class DefaultPreset extends LaravelPreset
                 "^.+\\.vue$" => "vue-jest",
                 "^.+\.(js|jsx)?$" => "babel-jest",
             ],
-            "snapshotSerializers" => ["jest-serializer-vue"],
-            "watchPlugins" => [
-            ],
             "transformIgnorePatterns" => [
-                "<rootDir>/node_modules/"
+                "<rootDir>/node_modules/",
+                "<rootDir>/vendor/"
             ],
             "testURL" => "http://localhost/",
         ];
@@ -188,6 +176,12 @@ class DefaultPreset extends LaravelPreset
 
         $packages['jest'] = $jestConfig;
 
+        $packages['browserslist'] = [
+            "> 1%",
+            "last 2 versions",
+            "not ie <= 8"
+        ];
+
         file_put_contents(
             base_path('package.json'),
             json_encode($packages, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) . PHP_EOL
@@ -197,14 +191,15 @@ class DefaultPreset extends LaravelPreset
     private static function newPackages()
     {
         return [
-            'cypress' => '^5.0.0',
-            '@types/jest' => '^26.0.10',
+            'babel-core' => '^6.26.3',
+            '@vue/cli-plugin-typescript' => '^4.5.6',
+            'cypress' => '^5.2.0',
+            '@types/jest' => '^26.0.14',
             '@types/md5' => '^2.2.0',
             'tailwind-mix' => '^1.0.4',
-            'vue' => '^2.6.11',
-            'ts-loader' => '^8.0.2',
+            'vue' => '^2.6.12',
+            'ts-loader' => '^8.0.3',
             'cypress-intellij-reporter' => '0.0.4',
-            '@vue/cli-plugin-unit-jest' => '^4.5.3',
             'typescript' => '^3.9.7',
             'tailwindcss' => '^1.6.2',
             'laravel-mix-eslint-config' => '^0.1.7',
@@ -215,9 +210,12 @@ class DefaultPreset extends LaravelPreset
             '@typescript-eslint/parser' => '^3.9.0',
             '@typescript-eslint/eslint-plugin' => '^3.9.0',
             'vue-class-component' => '^7.2.5',
+            'sass-loader' => '^10.0.2',
+            'fibers' => '^5.0.0',
+            'sass' => '^1.26.10',
             'vue-eslint-parser' => '^7.1.0',
             'vue-property-decorator' => '^9.0.0',
-            'vue-template-compiler' => '^2.6.11',
+            'vue-template-compiler' => '^2.6.12',
             'vue-rx' => '^6.2.0',
             'rxjs' => '^6.6.2',
             'vue-router' => '3.4.3',
@@ -332,11 +330,15 @@ class DefaultPreset extends LaravelPreset
             'ts/pages/HomePage.vue',
             'ts/pages/LoginPage.vue',
 
-            'ts//components/Header.vue',
+            'ts/components/Header.vue',
             'ts/components/GravatarImg.vue',
+
+            'ts/shims/shims-vue.d.ts',
 
             // scss
             'scss/app.scss',
+
+
         ];
 
         foreach ($files as $file) {
