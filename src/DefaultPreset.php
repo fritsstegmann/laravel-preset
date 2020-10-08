@@ -61,10 +61,11 @@ class DefaultPreset extends LaravelPreset
             'pre-commit' => [
                 "echo committing as $(git config user.email)",
                 'cd $(git rev-parse --show-toplevel)',
-                'vendor/bin/phpcs --standard=PSR1 ./app',
-                'vendor/bin/phpcs --standard=PSR12 ./app',
-                'vendor/bin/phpmd ./app text phpmd.xml',
-                'vendor/bin/phpunit -c ./phpunit.xml',
+                'vendor/bin/phpcs --standard=PSR1 ./app && \\',
+                'vendor/bin/phpcs --standard=PSR12 ./app && \\',
+                'vendor/bin/phpmd ./app text phpmd.xml && \\',
+                'vendor/bin/phpunit -c ./phpunit.xml > /dev/null 2>&1',
+                'exit $?'
             ],
             'post-merge' => [
                 'composer install',
@@ -96,8 +97,6 @@ class DefaultPreset extends LaravelPreset
                     'cghooks update',
                 ],
                 'post-install-cmd' => [
-                    "@php artisan ide-helper:generate",
-                    "@php artisan ide-helper:meta",
                     'cghooks add --ignore-lock'
                 ],
             ]
